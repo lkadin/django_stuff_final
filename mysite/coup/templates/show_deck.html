@@ -1,0 +1,23 @@
+<!--{% extends "base_generic.html" %}-->
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coup</title>
+</head>
+<body>
+
+<p>Show deck....</p>
+
+<p>
+    {% for card in deck.cards.all %}
+    {% if card.shuffle_order != None %}
+    {{ card }} {{card.shuffle_order}}
+    {% endif %}
+    {% endfor %}</p>
+<p> {{cardsremaining}} cards remaining</p>
+
+
+</body>
+</html>
+{% endblock %}

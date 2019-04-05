@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Not you turn</title>
+</head>
+<body>
+<h1>It's not your Turn</h1>
+<a href="{% url 'showTable'%}?next={{request.path}}">Continue Game</a>
+</body>
+</html>

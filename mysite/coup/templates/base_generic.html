@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% block title %}<title>Local Library</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-2">
+            {% block sidebar %}
+            <ul class="sidebar-nav">
+
+                <br>
+                {% if user.is_authenticated %}
+                <b>
+                    <li>User: {{ user.get_username }}</li>
+                </b>
+                <br>
+                <li><a href="{% url 'logout'%}?next={{request.path}}"><b>Logout</b></a></li>
+                {% else %}
+                <li><a href="{% url 'login'%}?next={{request.path}}"><b>Login</b></a></li>
+                {% endif %}
+
+                {% for action in actions %}
+                <br>
+                <li>
+                    <a href="/coup/{{action.url}}?action={{action}}&playerName={{current_player_name}}"><b>{{action}}</b></a>
+                    {% endfor %}
+
+                <li>
+
+                    <br>
+                    <br>
+                <li><b>Last 4 moves:</b></li>
+                <br>
+                {% for event in actionhistory %}
+                <p>{{event.player1}} - {{ event.name }}</p>
+                {% endfor %}
+                <br>
+
+                {% for player in players %}
+                {% if player.playerNumber == game.whoseTurn %}
+                <font size="3"><b>{{ player.playerName }} - it's your turn</b></font>
+                {% endif %}
+                {% endfor %}
+
+                <br>
+                {% if game.current_player2 and game.current_action != 'Challenge' %}
+                <p>{{game.current_player1}} {{ action_description }} {{game.current_player2}}</p>
+                {% elif game.current_player2 and game.current_action == 'Challenge' %}
+                <p>{{game.challenge_winner}} won the challenge - {{game.challenge_loser}} needs to lose influence</p>
+                {% endif %}
+
+            </ul>
+
+
+            </form>
+
+            {% endblock %}
+
+        </div>
+        <div class="col-sm-10 ">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
