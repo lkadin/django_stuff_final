@@ -14,12 +14,12 @@ class GameModelTest(TestCase):
         game = Game(id=1,
                     NUM_OF_CARDS=2)
 
-        game.save()
-        Card.objects.create(cardName="Contessa")
-        Card.objects.create(cardName="Assassin")
-        Card.objects.create(cardName="Captain")
-        Card.objects.create(cardName="Duke")
-        Card.objects.create(cardName="Ambassador")
+        # game.save()
+        # Card.objects.create(cardName="Contessa")
+        # Card.objects.create(cardName="Assassin")
+        # Card.objects.create(cardName="Captain")
+        # Card.objects.create(cardName="Duke")
+        # Card.objects.create(cardName="Ambassador")
         game.initialize()
 
     def test_initial_deal(self):

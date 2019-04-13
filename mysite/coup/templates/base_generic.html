@@ -29,46 +29,249 @@
                 <b>
                     <li>User: {{ user.get_username }}</li>
                 </b>
-                <br>
                 <li><a href="{% url 'logout'%}?next={{request.path}}"><b>Logout</b></a></li>
                 {% else %}
                 <li><a href="{% url 'login'%}?next={{request.path}}"><b>Login</b></a></li>
                 {% endif %}
+                <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style>
 
+
+p {
+  font-weight: bold;
+  font-size: 16px;
+  color: ##0000b3;
+}
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 0 5px 0;
+  font-weight: bold;
+  display: none;
+}
+
+.hi {
+  background-color: #3498DB;
+  color: white;
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin: 5px 0 5px 0;
+  font-weight: bold;
+}
+
+table.HistoryHeader {
+border-spacing: 0;
+ font-weight: bold;
+ font-size: 19px;
+ color: #3498DB;
+ border: 2px solid #3498DB;
+}
+
+table.HistoryHeader tbody,
+table.HistoryHeader thead { display: block; }
+
+thead tr th {
+    height: 30px;
+    line-height: 30px;
+}
+
+table.HistoryHeader tbody {
+    height: 100 px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody { border-top: 2px solid #3498DB; }
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+
+
+.history {
+ font-size: 16px;
+ color: #3498DB;
+}
+
+<!--}-->
+
+.dropdown {
+  position: relative;
+  display: block;
+
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.show {display: block;}
+
+
+
+
+                    </style>
+                </head>
+                <body>
+
+
+                <div class="dropdown">
+                    <button onclick="myFunction()" id="Steal" class="dropbtn">Steal</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        {% for player in eligible %}
+                        <a href="/coup/actions?action=Steal&playerName={{current_player_name}}&name={{player.playerName}}">{{player.playerName}}{{action}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button onclick="myFunction1()" id="Assassinate" class="dropbtn">Assassinate</button>
+                    <div id="myDropdown1" class="dropdown-content">
+                        {% for player in eligible_coup_assassinate %}
+                        <a href="/coup/actions?action=Assassinate&playerName={{current_player_name}}&name={{player.playerName}}">{{player.playerName}}{{action}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button onclick="myFunction2()" id="Coup" class="dropbtn">Coup</button>
+                    <div id="myDropdown2" class="dropdown-content">
+                        {% for player in eligible_coup_assassinate %}
+                        <a href="/coup/actions?action=Coup&playerName={{current_player_name}}&name={{player.playerName}}">{{player.playerName}}{{action}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function myFunction1() {
+  document.getElementById("myDropdown1").classList.toggle("show");
+}
+
+function myFunction2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+                </script>
+
+
+                </body>
+                </html>
+                <script> var name="fred"</script>
                 {% for action in actions %}
-                <br>
                 <li>
-                    <a href="/coup/{{action.url}}?action={{action}}&playerName={{current_player_name}}"><b>{{action}}</b></a>
+                    {% if action.name not in 'Steal,Assassinate,Coup,Challenge,Draw' %}
+                    <a href="/coup/{{action.url}}?action={{action}}&playerName={{current_player_name}}&name={{prior_player_name}}"
+                       @name>
+                        <button class="hi">{{action}}</button>
+                    </a>
+                    {% endif %}
+
+                    {% if action.name == 'Challenge'%}
+                    <a href="/coup/challenge?playerName={{current_player_name}}&name={{prior_player_name}}" @name>
+                        <button class="hi">{{action}}</button>
+                    </a>
+                    {% endif %}
+
+                    {% if action.name == 'Draw'%}
+                    <a href="/coup/draw?playerName={{current_player_name}}&name={{prior_player_name}}" @name>
+                        <button class="hi">{{action}}</button>
+                    </a>
+                    {% endif %}
+
+                    {% if action.name == 'Steal'%}
+                    <script>document.getElementById('Steal').style.display = "block";</script>
+                    {% endif %}
+                    {% if action.name == 'Assassinate'%}
+                    <script>document.getElementById('Assassinate').style.display = "block";</script>
+                    {% endif %}
+                    {% if action.name == 'Coup'%}
+                    <script>document.getElementById('Coup').style.display = "block";</script>
+                    {% endif %}
+
+                    {% endfor %}
+                <li>
+
+                    <br>
+                    <br>
+
+
+                    <table class="HistoryHeader">
+                        <thead>
+                        <tr>
+                            <th>History</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for event in actionhistory %}
+                        <tr>
+                            <td class="history">{{event.player1}} -> {{ event.name }} -> {{ event.player2}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% for player in players %}
+                    {% if player.playerNumber == game.whoseTurn %}
+                    <p>{{ player.playerName }}, it's your turn</p>
+                    {% endif %}
                     {% endfor %}
 
-                <li>
-
                     <br>
-                    <br>
-                <li><b>Last 4 moves:</b></li>
-                <br>
-                {% for event in actionhistory %}
-                <p>{{event.player1}} - {{ event.name }}</p>
-                {% endfor %}
-                <br>
-
-                {% for player in players %}
-                {% if player.playerNumber == game.whoseTurn %}
-                <font size="3"><b>{{ player.playerName }} - it's your turn</b></font>
-                {% endif %}
-                {% endfor %}
-
-                <br>
-                {% if game.current_player2 and game.current_action != 'Challenge' %}
-                <p>{{game.current_player1}} {{ action_description }} {{game.current_player2}}</p>
-                {% elif game.current_player2 and game.current_action == 'Challenge' %}
-                <p>{{game.challenge_winner}} won the challenge - {{game.challenge_loser}} needs to lose influence</p>
-                {% endif %}
+                    {% if game.current_player2 and game.current_action != 'Challenge' %}
+                    <p>{{game.current_player1}} {{ action_description }} {{game.current_player2}}</p>
+                    {% elif game.current_player2 and game.current_action == 'Challenge' %}
+                    <p>{{game.challenge_winner}} won the challenge | {{game.challenge_loser}} needs to lose
+                        influence</p>
+                    {% endif %}
 
             </ul>
 
-
-            </form>
 
             {% endblock %}
 

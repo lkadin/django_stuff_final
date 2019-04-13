@@ -8,30 +8,41 @@ urlpatterns = [
 
 urlpatterns += [
     path('start', views.startgame, name='startGame'),
-]
+    ]
 urlpatterns += [
-    path('showTable', views.showtable, name='showTable'),
-]
+    path('showTable', views.show_table, name='showTable'),
+    ]
 
 urlpatterns += [
-    path('showDeck', views.showdeck, name='showDeck'),
-]
+    path('showDeck', views.show_deck, name='showDeck'),
+    ]
 
 urlpatterns += [
-    path('initialDeal', views.initialdeal, name='initialDeal'),
-]
+    path('initialDeal', views.initial_deal, name='initialDeal'),
+    ]
 
 urlpatterns += [
     path('shuffle', views.shuffle, name='shuffle'),
-]
+    ]
 
 urlpatterns += [
     path('actions', views.actions, name='actions'),
+    ]
+
+urlpatterns += [
+    path('challenge', views.challenge, name='challenge'),
 ]
 
 urlpatterns += [
-    path('loseinfluence', views.loseinfluence, name='loseinfluence'),
+    path('draw', views.draw, name='draw'),
+]
+
+urlpatterns += [
+    path('loseinfluence', views.lose_influence, name='loseinfluence'),
 ]
 urlpatterns += [
     path('lose_one_card', views.lose_one_card, name='lose_one_card'),
+]
+urlpatterns += [
+    path('set_coins', views.set_coins, name='set_coins'),
 ]

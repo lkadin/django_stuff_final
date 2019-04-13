@@ -11,41 +11,34 @@
 
 {% load static %}
 <table style='border-collapse: collapse;'>
-    <col width="40%">
-    <col width="40%">
-    <tr>
-        {% for player in players %}
-        <td>
-            <p style=text-align:top;><strong>{{player.playerName}}</strong> has {{player.coins}} coins</p>
-            {% for card in player.hand.all %}
+  <col width="40%">
+  <col width="40%">
+  <tr>
+    {% for player in players %}
+      <td>
+        <p style=text-align:top;><strong>{{player.playerName}}</strong> has {{player.coins}} coins</p>
+        {% for card in player.hand.all %}
             {% if card.status == 'U' %}
-            <img src="/static/images/{{card}}.jpg" {{card}} style=opacity:0.4;>
+              <img src="/static/images/{{card}}.jpg" {{card}} style=opacity:0.4;>
             {% elif card.status == 'D' %}
-            {% if user.get_username == player.playerName %}
-            <img src="/static/images/{{card}}.jpg" {{card}}>
-            {% else %}
-            <img src="/static/images/down.png" {{card}}>
+              {% if user.get_username ==  player.playerName %}
+                <img src="/static/images/{{card}}.jpg" {{card}}>
+              {% else %}
+                <img src="/static/images/down.png" {{card}}>
+              {% endif %}
             {% endif %}
-            {% endif %}
-            {% endfor %}
-        </td>
-        {% if forloop.counter|divisibleby:2 %}
-    </tr>
-    <tr>
-        <td><br><br></td>
-    </tr>
-    <tr>{% endif %}
         {% endfor %}
-    </tr>
+      </td>
+      {% if forloop.counter|divisibleby:2 %}</tr><tr><td><br><br></td></tr><tr>{% endif %}
+    {% endfor %}
+  </tr>
 </table>
 
 
 <script>
     window.setTimeout(function () {
     location.reload();
-}, 10000); // refresh/redirect after 10 seconds.
-
-
+}, 5000); // refresh/redirect after 5 seconds.
 
 
 
