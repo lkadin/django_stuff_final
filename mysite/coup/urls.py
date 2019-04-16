@@ -46,3 +46,6 @@ urlpatterns += [
 urlpatterns += [
     path('set_coins', views.set_coins, name='set_coins'),
 ]
+urlpatterns += [
+    path('clear_lobby', views.clear_lobby, name='clear_lobby'),
+]

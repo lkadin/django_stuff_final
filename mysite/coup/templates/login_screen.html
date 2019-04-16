@@ -7,16 +7,19 @@
 <body>
 <!--<h1>Please login</h1>-->
 <br>
-
-<p>The following players are currently in the game:</p>
-{% for player in players %}
-<p><strong></strong> {{player.playerName}} </p>
+<p>Game in progress - {{in_progress}} </p>
+<p>The following players are currently in the lobby:</p>
+<br>
+{% for name in names %}
+<p><strong></strong> {{name}} </p>
 {% endfor %}
 {% if user.is_authenticated %}
 User: {{ user.get_username }}
 
+
 <li><a href="{% url 'startGame'%}?next={{request.path}}">Start New Game</a></li>
-<li><a href="{% url 'showTable'%}?next={{request.path}}">Continue Game</a></li>
+<li><a href="{% url 'showTable'%}?next={{request.path}}">Join Game</a></li>
+<li><a href="{% url 'clear_lobby'%}">Clear Lobby</a></li>
 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
 {% else %}
 <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>

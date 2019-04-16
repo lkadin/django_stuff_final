@@ -47,6 +47,17 @@ def take_action():
     return
 
 
+def finish_challenge():
+    game = Game.objects.all()[0]
+    action = Action.objects.get(name=game.current_action)
+    player1 = Player.objects.get(playerName=game.current_player1)
+    if action.pending_required and not game.pending_action:
+        game.pending_action = True
+        game.save()
+    player1.save()
+    game.finish_turn(action)
+    return
+
 def get_initial_action_data(request):
     game = Game.objects.all()[0]
     if request.method == 'GET':

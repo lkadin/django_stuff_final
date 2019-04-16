@@ -183,6 +183,10 @@ class Deck(models.Model):
         self.card.save()
 
 
+class Lobby(models.Model):
+    player_name = models.CharField(max_length=20)
+
+
 class Game(models.Model):
     NUM_OF_CARDS = models.IntegerField(default=2)
     whoseTurn = models.IntegerField(default=0)
@@ -197,6 +201,8 @@ class Game(models.Model):
     challenge_loser = models.CharField(max_length=20, null=True, blank=True)
     discards = models.CharField(max_length=60, null=True, blank=True)
     second_player = models.CharField(max_length=20, null=True, blank=True)
+    in_progress = models.BooleanField(default=False)
+    number_of_players = models.IntegerField(default=0)
 
     @staticmethod
     def del_card_instances():
@@ -226,13 +232,23 @@ class Game(models.Model):
         Player.objects.all().delete()
 
         # todo:replace with lobby /login
+        self.in_progress = True
         self.add_all_players()
         self.initialDeal()
 
+    def reset(self):
+        self.in_progress = False
+        # ActionHistory.objects.all().delete()
+        # Card.objects.all().delete()
+        # Action.objects.all().delete()
+        # self.number_of_players=0
+        # Player.objects.all().delete()
+
+    def clear_lobby(self):
+        Lobby.objects.all().delete()
+
     def initialDeal(self):
         self.deck = Deck.objects.all()[0]
-        # self.deck.shuffle()
-        # self.deck.save()
         players = Player.objects.all()
         for i in range(self.NUM_OF_CARDS):
             for player in players:
@@ -240,14 +256,13 @@ class Game(models.Model):
                 self.deck.save()
 
     def add_all_players(self):
-        player = Player(playerName="Lee", playerNumber=0)
-        player.save()
-        player = Player(playerName="Adina", playerNumber=1)
-        player.save()
-        player = Player(playerName="Sam", playerNumber=2)
-        player.save()
-        player = Player(playerName="Jamie", playerNumber=3)
-        player.save()
+        player_number = 0
+        lobby_visitors = Lobby.objects.all()
+        for name in lobby_visitors:
+            player = Player(playerName=name.player_name, playerNumber=player_number)
+            player.save()
+            player_number += 1
+        self.number_of_players = player_number
 
     def add_all_actions(self):
 
@@ -370,9 +385,9 @@ class Game(models.Model):
         self.save()
 
     def next_turn(self, force=False):
-        self.whoseTurn = (self.whoseTurn + 1) % 4
+        self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
         while not Player.objects.get(playerNumber=self.whoseTurn).influence():
-            self.whoseTurn = (self.whoseTurn + 1) % 4
+            self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
 
     def finish_turn(self, action=None):
         if action:
@@ -448,7 +463,8 @@ class Game(models.Model):
             action_history.save()
             self.pending_action = False
             self.challenge_in_progress = False
-            self.finish_turn()
+            # self.finish_turn()
+            self.clearCurrent()
 
         if action.name == "Challenge":
             loser = self.getPlayerFromPlayerName(self.challenge_loser)
@@ -460,8 +476,11 @@ class Game(models.Model):
             self.current_player2 = prior_player_name
             self.challenge_in_progress = False
             self.pending_action = False
-            self.finish_turn()
+
+            # self.finish_turn()
+            self.clearCurrent()
         self.save()
+
 
     def getPlayerFromPlayerName(self, playerName):
         return Player.objects.get(playerName=playerName)
@@ -507,14 +526,15 @@ class Game(models.Model):
             if prior_action_name == "Assassinate":
                 self.lose_all_cards(self.challenge_loser)
                 self.challenge_in_progress = False
-                self.finish_turn()
                 self.save()
+                self.finish_turn()
                 self.save()
                 return
             if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
                 self.lose_all_cards(self.challenge_loser)
                 self.save()
                 self.challenge_in_progress = False
+                self.save()
                 self.finish_turn()
                 self.save()
                 return

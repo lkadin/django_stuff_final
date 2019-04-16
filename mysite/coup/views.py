@@ -1,31 +1,36 @@
-# from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory, Function
-# from django.contrib.auth.mixins import LoginRequiredMixin
-from .action import get_initial_action_data, take_action, getrequest
+from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory, Function
+from .action import get_initial_action_data, take_action, getrequest, finish_challenge
 import random
 
 def index(request):
-    players = Player.objects.all()
-    names = [player.playerName for player in players]
-    if len(players) <= 4:
+    game = Game.objects.all()[0]
+    in_progress = game.in_progress
+    lobby_visitors = Lobby.objects.all()
+    names = [lobby.player_name for lobby in lobby_visitors]
+    if len(names) <= 6:
         if request.user.username not in names and request.user.username:
-            player = Player(playerName=request.user.username)
-            player.save()
+            lobby = Lobby(player_name=request.user.username)
+            lobby.save()
         return render(
             request,
             'login_screen.html',
-            context={'players': players})
+            context={'names': names, 'in_progress': in_progress})
     else:
         return render(
             request,
             'no_more.html')
 
 def startgame(request):
-    game = Game(id=1)
+    game = Game.objects.all()[0]
+    lobby_visitors = Lobby.objects.all()
+    if game.in_progress:
+        return redirect(index)
+    if len(lobby_visitors) < 2:
+        return redirect(index)
     game.initialize()
     game.clearCurrent()
-    game.whoseTurn = random.randint(0, 3)
+    game.whoseTurn = random.randint(0, game.number_of_players - 1)
     game.save()
     Deck.objects.all().delete()
     deck = Deck(id=1)
@@ -116,7 +121,8 @@ def show_table(request):
                      'prior_player_name': prior_player_name}
         )
     else:
-
+        game.reset()
+        game.save()
         return render(
             request,
             'game_over.html',
@@ -182,7 +188,8 @@ def challenge(request):
     game.challenge()
     game.save()
     if game.challenge_in_progress:
-        take_action()
+        # take_action()
+        finish_challenge()
     return redirect(show_table)
 
 
@@ -220,3 +227,10 @@ def set_coins(request):
         player.coins = 3
         player.save()
     return redirect(show_table)
+
+
+def clear_lobby(request):
+    game = Game.objects.all()[0]
+    game.clear_lobby()
+    game.save()
+    return redirect(index)
