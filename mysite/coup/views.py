@@ -24,8 +24,8 @@ def index(request):
 def startgame(request):
     game = Game.objects.all()[0]
     lobby_visitors = Lobby.objects.all()
-    if game.in_progress:
-        return redirect(index)
+    # if game.in_progress:
+    #     return redirect(index)
     if len(lobby_visitors) < 2:
         return redirect(index)
     game.initialize()
@@ -62,7 +62,7 @@ def show_table(request):
                 actions = Action.objects.filter(name__in=['Challenge'])
                 if prior_action_name == 'Foreign Aid':
                     block_foriegn_aid = Action.objects.filter(name__in=['Block Foreign Aid'])
-                    challenge = Action.objects.filter(name__in=['Challenge'])
+                    # challenge = Action.objects.filter(name__in=['Challenge'])
                     actions = actions.union(block_foriegn_aid)
             else:
                 actions = []
@@ -73,8 +73,8 @@ def show_table(request):
         if request.user.get_username() == game.current_player2 and game.current_action == 'Assassinate':
             actions = Action.objects.filter(name__in=["Lose Influence", "Block Assassinate", "Challenge"])
 
-        if request.user.get_username() == game.current_player2 and game.current_action in ('Coup', 'Challenge'):
-            actions = Action.objects.filter(name__in=["Lose Influence"])
+        # if request.user.get_username() == game.current_player2 and game.current_action in ('Coup', 'Challenge'):
+        #     actions = Action.objects.filter(name__in=["Lose Influence"])
 
         if request.user.get_username() == game.challenge_loser and game.current_action in ('Challenge'):
             actions = Action.objects.filter(name__in=["Lose Influence"])

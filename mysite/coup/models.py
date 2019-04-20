@@ -523,13 +523,18 @@ class Game(models.Model):
         if prior_player.is_card_in_hand(prior_action.card_required):  # challenge not successful
             self.challenge_loser = current_player.playerName
             self.challenge_winner = prior_player_name
-            if prior_action_name == "Assassinate":
+            print("Player {} has {} influence ".format(self.challenge_loser,
+                                                       self.getPlayerFromPlayerName(self.challenge_loser).influence()))
+            if prior_action_name == "Assassinate" or self.getPlayerFromPlayerName(
+                    self.challenge_loser).influence() == 1:
                 self.lose_all_cards(self.challenge_loser)
                 self.challenge_in_progress = False
                 self.save()
                 self.finish_turn()
                 self.save()
                 return
+            print("Player {} has {} influence ".format(self.challenge_loser,
+                                                       self.getPlayerFromPlayerName(self.challenge_loser).influence()))
             if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
                 self.lose_all_cards(self.challenge_loser)
                 self.save()
@@ -546,8 +551,12 @@ class Game(models.Model):
             self.challenge_loser = prior_player_name
             self.challenge_winner = current_player.playerName
             prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
-            if prior_action_name == 'Steal':
+            # if prior_action_name == 'Steal':
+            if prior_action_name in ('Steal', 'Block Steal'):
                 current_player.add_coins(prior_action.coins_to_lose_in_challenge)
+                print("HERE****************")
+                current_player.add_coins(2)
+                prior_player.lose_coins(2)
             prior_player.save()
             current_player.save()
             if prior_action_name == "Block Assassinate":
