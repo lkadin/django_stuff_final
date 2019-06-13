@@ -15,9 +15,9 @@ class GameviewTest(TestCase):
         # for author_num in range(number_of_authors):
         # Author.objects.create(first_name='Christian %s' % author_num, last_name='Surname %s' % author_num, )
 
-    def test_view_url_exists_at_desired_location(self):
-        resp = self.client.get('/coup/')
-        self.assertEqual(resp.status_code, 200)
+    # def test_view_url_exists_at_desired_location(self):
+    #     resp = self.client.get('/coup/')
+    #     self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):
         resp = self.client.get(reverse('authors'))

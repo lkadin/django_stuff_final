@@ -11,9 +11,11 @@ def take_action():
         player2 = None
 
     if game.current_action == 'Assassinate' and not game.pending_action:
+        game.next_turn()
         game.assassinate(player1, action)
 
     if game.current_action == 'Coup' and not game.pending_action:
+        game.next_turn()
         game.coup(player1, action)
 
     if game.current_action == "Income":

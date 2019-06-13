@@ -14,13 +14,34 @@ class GameModelTest(TestCase):
         game = Game(id=1,
                     NUM_OF_CARDS=2)
 
-        # game.save()
-        # Card.objects.create(cardName="Contessa")
-        # Card.objects.create(cardName="Assassin")
-        # Card.objects.create(cardName="Captain")
-        # Card.objects.create(cardName="Duke")
-        # Card.objects.create(cardName="Ambassador")
-        game.initialize()
+        ActionHistory.objects.all().delete()
+        Card.objects.all().delete()
+        Action.objects.all().delete()
+        game.add_all_actions()
+        game.add_all_cards()
+        game.del_card_instances()
+        game.build_cards()
+        deck = Deck(id=1)
+        deck.save()
+        deck.build()
+        deck.shuffle()
+        deck.save()
+        Player.objects.all().delete()
+
+        # todo:replace with lobby /login
+        game.in_progress = True
+        # game.add_all_players()
+        player = Player(playerName="Lee", playerNumber=0)
+        player.save()
+        player = Player(playerName="Adina", playerNumber=1)
+        player.save()
+        player = Player(playerName="Sam", playerNumber=2)
+        player.save()
+        player = Player(playerName="Jamie", playerNumber=3)
+        player.save()
+        game.initialDeal()
+        game.number_of_players = 4
+        game.save()
 
     def test_initial_deal(self):
         game = Game.objects.all()[0]
@@ -62,3 +83,8 @@ class GameModelTest(TestCase):
         player.discard(player.hand.filter(status='D')[0])
         self.assertEqual(player.hand.filter(status='D').count(), 1)
         self.assertEqual(player.cardcount(), 2)
+
+        # test next turn
+        next_turn = game.whoseTurn + 1
+        game.next_turn()
+        self.assertEqual(game.whoseTurn, next_turn)

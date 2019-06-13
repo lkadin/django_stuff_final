@@ -73,8 +73,8 @@ def show_table(request):
         if request.user.get_username() == game.current_player2 and game.current_action == 'Assassinate':
             actions = Action.objects.filter(name__in=["Lose Influence", "Block Assassinate", "Challenge"])
 
-        # if request.user.get_username() == game.current_player2 and game.current_action in ('Coup', 'Challenge'):
-        #     actions = Action.objects.filter(name__in=["Lose Influence"])
+        if request.user.get_username() == game.current_player2 and game.current_action in ('Coup'):
+            actions = Action.objects.filter(name__in=["Lose Influence"])
 
         if request.user.get_username() == game.challenge_loser and game.current_action in ('Challenge'):
             actions = Action.objects.filter(name__in=["Lose Influence"])
@@ -212,6 +212,9 @@ def actions(request):
     if game.challenge_in_progress:
         get_initial_action_data(request)
         take_action()
+    player = game.getPlayerFromPlayerName(game.current_player2)
+    if player.lose_last_card():
+        return redirect(show_table)
     return redirect(show_table)
 
 
@@ -224,7 +227,7 @@ def lose_one_card(request):
 
 def set_coins(request):
     for player in Player.objects.all():
-        player.coins = 3
+        player.coins = 8
         player.save()
     return redirect(show_table)
 
