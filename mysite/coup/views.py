@@ -212,9 +212,10 @@ def actions(request):
     if game.challenge_in_progress:
         get_initial_action_data(request)
         take_action()
-    player = game.getPlayerFromPlayerName(game.current_player2)
-    if player.lose_last_card():
-        return redirect(show_table)
+    if game.current_action == 'Coup':
+        player = game.getPlayerFromPlayerName(game.current_player2)
+        if player.lose_last_card():
+            return redirect(show_table)
     return redirect(show_table)
 
 
