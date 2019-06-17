@@ -516,7 +516,8 @@ class Game(models.Model):
         prior_player = Player.objects.get(playerName=prior_player_name)
         current_player = Player.objects.get(playerName=self.current_player1)
         if prior_action_name not in (
-                "Take 3 coins", "Block Steal", "Steal", "Assassinate", "Block Assassinate", "Block Foreign Aid"):
+                "Take 3 coins", "Block Steal", "Steal", "Assassinate", "Block Assassinate", "Block Foreign Aid",
+                "Draw"):
             return
         self.current_player2 = prior_player_name
         self.save()

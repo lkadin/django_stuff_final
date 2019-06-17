@@ -48,7 +48,7 @@ def show_table(request):
                 actions = Action.objects.filter(name="Coup")
             else:
                 actions = Action.objects.filter(coins_required__lte=current_player_coins)
-                if prior_action_name not in ('Income', 'Draw', 'Challenge', 'Lose Influence', None, 'Foreign Aid'):
+                if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid'):
                     challenge = Action.objects.filter(name__in=['Challenge'])
                     actions = actions.union(challenge)
                 if prior_action_name == 'Foreign Aid':
@@ -57,7 +57,7 @@ def show_table(request):
 
         if request.user.get_username() != game.currentPlayerName():
             if prior_action_name not in (
-                    'Income', 'Draw', 'Challenge', 'Lose Influence',
+                    'Income', 'Challenge', 'Lose Influence',
                     None) and request.user.get_username() != prior_player_name:
                 actions = Action.objects.filter(name__in=['Challenge'])
                 if prior_action_name == 'Foreign Aid':
