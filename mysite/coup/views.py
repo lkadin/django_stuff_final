@@ -201,6 +201,7 @@ def draw(request):
         player = game.getPlayerFromPlayerName(game.current_player1)
         return render(request, 'discard.html', {'player': player, 'cards': player.hand.filter(status='D')})
     else:
+        game.next_turn()
         game.finish_turn(action)
         return redirect(show_table)
 

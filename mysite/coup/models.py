@@ -395,7 +395,7 @@ class Game(models.Model):
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
             action_history.save()
         if not self.pending_action and not self.challenge_in_progress:
-            self.next_turn()
+            # self.next_turn()
             self.clearCurrent()
             self.save()
 

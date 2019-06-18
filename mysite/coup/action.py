@@ -19,15 +19,19 @@ def take_action():
         game.coup(player1, action)
 
     if game.current_action == "Income":
+        game.next_turn()
         game.take_income(player1)
 
     if game.current_action == "Foreign Aid":
+        game.next_turn()
         game.take_foreign_aid(player1)
 
     if game.current_action == "Take 3 coins":
+        game.next_turn()
         game.take_3_coins(player1)
 
     if game.current_action == "Steal":
+        game.next_turn()
         game.steal(player1, player2)
 
     if game.current_action == "Block Steal":
