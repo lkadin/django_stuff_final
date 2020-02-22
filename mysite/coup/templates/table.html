@@ -9,6 +9,15 @@
 </head>
 <body oncontextmenu="return false">
 
+<style>
+img {
+  width: 40%;
+  height: auto;
+}
+</style>
+
+
+
 {% load static %}
 <table style='border-collapse: collapse;'>
   <col width="40%">
@@ -19,7 +28,7 @@
         <p style=text-align:top;><strong>{{player.playerName}}</strong> has {{player.coins}} coins</p>
         {% for card in player.hand.all %}
             {% if card.status == 'U' %}
-              <img src="/static/images/{{card}}.jpg" {{card}} style=opacity:0.4;>
+              <img style=height:auto src="/static/images/{{card}}.jpg" {{card}} style=opacity:0.4;>
             {% elif card.status == 'D' %}
               {% if user.get_username ==  player.playerName %}
                 <img src="/static/images/{{card}}.jpg" {{card}}>

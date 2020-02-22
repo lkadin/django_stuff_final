@@ -3,6 +3,7 @@ from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory, Func
 from .action import get_initial_action_data, take_action, getrequest, finish_challenge
 import random
 
+
 def index(request):
     game = Game.objects.all()[0]
     in_progress = game.in_progress
@@ -20,6 +21,7 @@ def index(request):
         return render(
             request,
             'no_more.html')
+
 
 def startgame(request):
     game = Game.objects.all()[0]
@@ -150,6 +152,7 @@ def initial_deal(request):
         context={'players': players}
     )
 
+
 def shuffle(request):
     deck = Deck.objects.get(id=1)
     deck.shuffle()
@@ -196,6 +199,7 @@ def challenge(request):
 def draw(request):
     get_initial_action_data(request)
     action = Action.objects.get(name='Draw')
+    # todo - start timer for challenge prior to draw OR save off cards and restore if challenge successful
     game = Game.objects.all()[0]
     if not game.draw():
         player = game.getPlayerFromPlayerName(game.current_player1)
