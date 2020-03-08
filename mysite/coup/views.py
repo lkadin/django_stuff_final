@@ -201,6 +201,7 @@ def draw(request):
     action = Action.objects.get(name='Draw')
     # todo - start timer for challenge prior to draw OR save off cards and restore if challenge successful
     game = Game.objects.all()[0]
+    game.current_action = 'Draw'
     if not game.draw():
         player = game.getPlayerFromPlayerName(game.current_player1)
         return render(request, 'discard.html', {'player': player, 'cards': player.hand.filter(status='D')})
