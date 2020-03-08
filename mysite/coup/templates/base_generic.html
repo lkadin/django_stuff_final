@@ -29,9 +29,9 @@
                 <b>
                     <li>User: {{ user.get_username }}</li>
                 </b>
-                <li><a href="{% url 'logout'%}?next={{request.path}}"><b>Logout</b></a></li>
+                <li><a href="{% url 'logout'%}?next=/coup"><b>Logout</b></a></li>
                 {% else %}
-                <li><a href="{% url 'login'%}?next={{request.path}}"><b>Login</b></a></li>
+                <li><a href="{% url 'login'%}?next=/coup"><b>Login</b></a></li>
                 {% endif %}
                 <html>
                 <head>
