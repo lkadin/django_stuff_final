@@ -332,11 +332,16 @@ class Game(models.Model):
         card.save()
 
     def draw(self):
-        if not self.discardRequired():
+
+        if not self.discardRequired() :
             player1 = Player.objects.get(playerName=self.current_player1)
             player1.draw(2)
+            self.player2 = None
             self.pending_action = True
+            self.save()
         else:
+            if self.pending_action and not self.discards:
+                return
             discards = self.discards.split()
             if discards:
                 self.discard_cards(discards)
@@ -480,7 +485,6 @@ class Game(models.Model):
             # self.finish_turn()
             self.clearCurrent()
         self.save()
-
 
     def getPlayerFromPlayerName(self, playerName):
         return Player.objects.get(playerName=playerName)

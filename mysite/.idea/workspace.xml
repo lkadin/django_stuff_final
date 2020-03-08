@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Make Images dynamic size">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fix setting game action to Draw">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -153,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582403775555</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix setting game action to Draw">
+      <created>1583677819076</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1583677819076</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,7 +180,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Lose influence is automatic if one card left when coming from view.&#10;Still need to do it from Challenge, Coup and Assainate" />
     <MESSAGE value="Make Images dynamic size" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make Images dynamic size" />
+    <MESSAGE value="Fix setting game action to Draw" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix setting game action to Draw" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -185,6 +194,11 @@
           <url>file://$PROJECT_DIR$/coup/views.py</url>
           <line>129</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/coup/views.py</url>
+          <line>199</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
