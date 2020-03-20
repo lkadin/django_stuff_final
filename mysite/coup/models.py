@@ -333,7 +333,7 @@ class Game(models.Model):
 
     def draw(self):
 
-        if not self.discardRequired() :
+        if not self.discardRequired():
             player1 = Player.objects.get(playerName=self.current_player1)
             player1.draw(2)
             self.player2 = None
@@ -497,9 +497,18 @@ class Game(models.Model):
         self.pending_action = False
         self.save()
 
-    def discard_cards(self, cards):
+    def discard_cards(self, cards_to_keep):
+        cards_to_discard = []
+        # convert from discard selected to keep selected
         player = Player.objects.get(playerName=self.current_player1)
-        for card in cards:
+        cards_in_hand = player.hand.all()
+        for x in cards_in_hand:
+            if x.card.cardName not in cards_to_keep:
+                cards_to_discard.append(x.card.cardName)
+            if x.card.cardName in cards_to_keep:
+                cards_to_keep.remove(x.card.cardName)
+
+        for card in cards_to_discard:
             player.discard(card)
             player.save()
 
