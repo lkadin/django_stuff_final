@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Changed draw to cards to keep instead of cards to discard">
-      <change afterPath="$PROJECT_DIR$/coup/static/coup/card_count.js" afterDir="false" />
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Changed Layout for cards to pick">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/discard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/discard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/game_over.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/game_over.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/lose_influence.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/lose_influence.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/templates/table.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/table.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -212,7 +207,21 @@
       <option name="project" value="LOCAL" />
       <updated>1584736503802</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Changed Layout for cards to pick">
+      <created>1585010360015</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585010360015</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changed Layout for cards to pick">
+      <created>1585010992061</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585010992061</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,7 +244,8 @@
     <MESSAGE value="Fix draw refresh to cause crash" />
     <MESSAGE value="Login / Logout should take you back to correct place" />
     <MESSAGE value="Changed draw to cards to keep instead of cards to discard" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed draw to cards to keep instead of cards to discard" />
+    <MESSAGE value="Changed Layout for cards to pick" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed Layout for cards to pick" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

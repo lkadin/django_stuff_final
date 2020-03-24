@@ -467,7 +467,6 @@ class Game(models.Model):
             action_history.save()
             self.pending_action = False
             self.challenge_in_progress = False
-            # self.finish_turn()
             self.clearCurrent()
 
         if action.name == "Challenge":
@@ -497,7 +496,6 @@ class Game(models.Model):
 
     def discard_cards(self, cards_to_keep):
         cards_to_discard = []
-        # convert from discard selected to keep selected
         player = Player.objects.get(playerName=self.current_player1)
         cards_in_hand = player.hand.all()
         for x in cards_in_hand:
@@ -544,25 +542,15 @@ class Game(models.Model):
         if prior_player.is_card_in_hand(prior_action.card_required):  # challenge not successful
             self.challenge_loser = current_player.playerName
             self.challenge_winner = prior_player_name
+
             if prior_action_name == "Assassinate" or self.getPlayerFromPlayerName(
                     self.challenge_loser).influence() == 1:
-
                 prepare_to_lose_all_cards()
-                # self.lose_all_cards(self.challenge_loser)
-                # self.save()
-                # self.challenge_in_progress = False
-                # self.save()
-                # self.finish_turn()
-                # self.save()
                 return
-            # if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
-            #     self.lose_all_cards(self.challenge_loser)
-            #     self.save()
-            #     self.challenge_in_progress = False
-            #     self.save()
-            #     self.finish_turn()
-            #     self.save()
-            #     return
+
+            if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
+                prepare_to_lose_all_cards()
+                return
 
             prior_player.swap(prior_player.is_card_in_hand(prior_action.card_required))  # swap out winning card
 
@@ -573,40 +561,35 @@ class Game(models.Model):
             prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
             if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
-                # self.lose_all_cards(self.challenge_loser)
-                # self.save()
-                # self.challenge_in_progress = False
-                # self.save()
-                # self.finish_turn()
-                # self.save()
                 return
+
             if prior_action_name in ('Steal', 'Block Steal'):
                 current_player.add_coins(prior_action.coins_to_lose_in_challenge)
                 print("HERE****************")
                 current_player.add_coins(2)
                 prior_player.lose_coins(2)
+
             prior_player.save()
             current_player.save()
             if prior_action_name == "Block Assassinate":
-                self.lose_all_cards(self.challenge_loser)
-                self.save()
+                prepare_to_lose_all_cards()
                 return
         self.save()
         self.current_action = 'Challenge'
 
-    def who_has(self, cardName):
-        players = Player.objects.all()
-        for player in players:
-            if player.is_card_in_hand(cardName):
-                return player.playerName
-
-    def who_does_not_have(self, cardName):
-        player = None
-        players = Player.objects.all()
-        for player in players:
-            if player.is_card_in_hand(cardName):
-                continue
-        return player.playerName
+    # def who_has(self, cardName):
+    #     players = Player.objects.all()
+    #     for player in players:
+    #         if player.is_card_in_hand(cardName):
+    #             return player.playerName
+    #
+    # def who_does_not_have(self, cardName):
+    #     player = None
+    #     players = Player.objects.all()
+    #     for player in players:
+    #         if player.is_card_in_hand(cardName):
+    #             continue
+    #     return player.playerName
 
     def get_prior_action_info(self):
         try:

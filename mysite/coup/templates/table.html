@@ -28,7 +28,7 @@ img {
         <p style=text-align:top;><strong>{{player.playerName}}</strong> has {{player.coins}} coins</p>
         {% for card in player.hand.all %}
             {% if card.status == 'U' %}
-              <img style=height:auto src="/static/images/{{card}}.jpg" {{card}} style=opacity:0.4;>
+              <img src="/static/images/{{card}}.jpg"  style=opacity:0.4; {{card}}>
             {% elif card.status == 'D' %}
               {% if user.get_username ==  player.playerName %}
                 <img src="/static/images/{{card}}.jpg" {{card}}>
