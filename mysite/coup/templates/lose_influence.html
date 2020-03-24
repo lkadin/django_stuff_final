@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'coup/style.css' %}">
+<script src="{% static 'coup/card_count.js' %}"></script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,37 +12,18 @@
 <form id="actions" method="post"> {% csrf_token %}
     {% for card in cards %}
     {{ card.card.cardName }}
-    <input type="checkbox" name="cardnames" value={{ card.card.cardName }}>
-    <td><img src="/static/images/{{card}}.jpg" height="350">
-        {% endfor %}
+    <input type="checkbox" class="chk" name="cardnames" id={{forloop.counter}} value={{ card.card.cardName }}>
+    <label for={{forloop.counter}}><img class="img" src="/static/images/{{card}}.jpg" height="350"/></label>
+    {% endfor %}
 
-
-        <p> Which card do you want to lose?</p>
-        <input type="submit" value="Submit">
+    <p> Which card do you want to lose?</p>
+    <input type="submit" value="Submit">
 </form>
 
 <script type="text/javascript">
-function checkboxlimit(checkgroup, limit){
-	var checkgroup=checkgroup
-	var limit=limit
-	for (var i=0; i<checkgroup.length; i++){
-		checkgroup[i].onclick=function(){
-		var checkedcount=0
-		for (var i=0; i<checkgroup.length; i++)
-			checkedcount+=(checkgroup[i].checked)? 1 : 0
-		if (checkedcount>limit){
-			alert("You can only select a maximum of "+limit+" checkboxes")
-			this.checked=false
-			}
-		}
-	}
-}
-
 checkboxlimit(document.forms.actions.cardnames, 1)
 
-
-
-
 </script>
+
 </body>
 </html>

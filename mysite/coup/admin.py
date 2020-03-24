@@ -1,13 +1,14 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Player, Card, Action, Deck, Game, CardInstance, Function, Lobby
+from .models import Player, Card, Action, Deck, Game, CardInstance, Function, Lobby,ActionHistory
 admin.site.register(Player)
 admin.site.register(Card)
 admin.site.register(Deck)
 admin.site.register(Game)
 admin.site.register(CardInstance)
 admin.site.register(Lobby)
+admin.site.register(ActionHistory)
 
 
 class FunctionInline(admin.TabularInline):

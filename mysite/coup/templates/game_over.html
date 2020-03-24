@@ -24,7 +24,20 @@
 
 {{winner}} won the game!!!
 <br>
-
+                    <table class="HistoryHeader">
+                        <thead>
+                        <tr>
+                            <th>History</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for event in actionhistory %}
+                        <tr>
+                            <td class="history">{{event.player1}} -> {{ event.name }} -> {{ event.player2}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 <a href="/coup/start">
     <button class="hi">Start new game</button>
 </a>

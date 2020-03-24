@@ -64,7 +64,6 @@ def show_table(request):
                 actions = Action.objects.filter(name__in=['Challenge'])
                 if prior_action_name == 'Foreign Aid':
                     block_foriegn_aid = Action.objects.filter(name__in=['Block Foreign Aid'])
-                    # challenge = Action.objects.filter(name__in=['Challenge'])
                     actions = actions.union(block_foriegn_aid)
             else:
                 actions = []
@@ -123,12 +122,13 @@ def show_table(request):
                      'prior_player_name': prior_player_name}
         )
     else:
+        game.finish_turn()
         game.reset()
         game.save()
         return render(
             request,
             'game_over.html',
-            context={'players': players, 'actions': actions, 'game': game, 'winner': game.ck_winner()}
+            context={'players': players, 'actions': actions, 'game': game, 'winner': game.ck_winner(),'actionhistory': action_history}
         )
 
 
@@ -191,7 +191,6 @@ def challenge(request):
     game.challenge()
     game.save()
     if game.challenge_in_progress:
-        # take_action()
         finish_challenge()
     return redirect(show_table)
 

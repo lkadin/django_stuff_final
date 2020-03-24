@@ -1,44 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'coup/style.css' %}">
+<script src="{% static 'coup/card_count.js' %}"></script>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Discard</title>
 </head>
 <body>
 
+
 <form id="actions" method="post" onsubmit="return CheckBoxCount(this)" ;> {% csrf_token %}
     {% for card in cards %}
-    {{ card.card.cardName }}
-    <input type="checkbox" name="cardnames" value={{ card.card.cardName }}>
-    <td><img src="/static/images/{{card}}.jpg" height="350">
-        {% endfor %}
+    <input type="checkbox" class="chk" name="cardnames" id={{forloop.counter}} value={{ card.card.cardName }}>
+        <label for={{forloop.counter}}><img class="img" src="/static/images/{{card}}.jpg" height="350"/></label>
+    {% endfor %}
 
-
-        <p> Which cards do you want to keep?</p>
-        <input type="submit" id="test" value="Submit">
+    <p> Which cards do you want to keep?</p>
+    <input type="submit" id="test" value="Submit">
 </form>
 
-<script type="text/javascript">
-
-    function CheckBoxCount() {
-        var inputList = document.getElementsByTagName("input");
-        var numChecked = 0;
-
-        for (var i = 0; i < inputList.length; i++) {
-            if (inputList[i].type == "checkbox" && inputList[i].checked) {
-                numChecked = numChecked + 1;
-            }
-        }
-        if (numChecked < 2) {
-            alert("You must pick 2 !"); return false;
-        } else if (numChecked > 2) {
-            alert("You must pick  2 !"); return false;
-        }
-        return true;
-
-    }
-
-
-</script>
 </body>
 </html>
