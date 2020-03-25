@@ -78,7 +78,6 @@ class Player(models.Model):
 
     def draw(self, number_of_cards):
         self.deck = Deck.objects.all()[0]
-        # self.deck.shuffle()
         for cards in range(number_of_cards):
             self.hand.add(self.deck.draw_card())
         self.save()
@@ -167,7 +166,6 @@ class Deck(models.Model):
             self.card2.save()
 
     def draw_card(self):
-        # self.shuffle()
         self.maxcard = CardInstance.objects.all().aggregate(Max('shuffle_order'))
         self.max = self.maxcard['shuffle_order__max']
         self.card = CardInstance.objects.get(shuffle_order=self.max)
@@ -238,11 +236,6 @@ class Game(models.Model):
 
     def reset(self):
         self.in_progress = False
-        # ActionHistory.objects.all().delete()
-        # Card.objects.all().delete()
-        # Action.objects.all().delete()
-        # self.number_of_players=0
-        # Player.objects.all().delete()
 
     def clear_lobby(self):
         Lobby.objects.all().delete()
@@ -453,6 +446,9 @@ class Game(models.Model):
         for self.card in self.cards:
             self.player.lose_influence(self.card.card.cardName)
         self.pending_action = False
+        action_history = ActionHistory(name='Challenge', player1=self.current_player2, player2=self.card.card.cardName,
+                                       challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
+        action_history.save()
 
     def finish_lose_influence(self, cardName):
         action = Action.objects.get(name=self.current_action)
@@ -479,7 +475,6 @@ class Game(models.Model):
             self.current_player2 = prior_player_name
             self.challenge_in_progress = False
             self.pending_action = False
-
             self.clearCurrent()
         self.save()
 
@@ -521,11 +516,12 @@ class Game(models.Model):
     def challenge(self):
 
         def prepare_to_lose_all_cards():
+            self.finish_turn()
             self.lose_all_cards(self.challenge_loser)
             self.save()
             self.challenge_in_progress = False
             self.save()
-            self.finish_turn()
+
             self.save()
 
         self.challenge_in_progress = True
@@ -565,7 +561,6 @@ class Game(models.Model):
 
             if prior_action_name in ('Steal', 'Block Steal'):
                 current_player.add_coins(prior_action.coins_to_lose_in_challenge)
-                print("HERE****************")
                 current_player.add_coins(2)
                 prior_player.lose_coins(2)
 
@@ -576,20 +571,6 @@ class Game(models.Model):
                 return
         self.save()
         self.current_action = 'Challenge'
-
-    # def who_has(self, cardName):
-    #     players = Player.objects.all()
-    #     for player in players:
-    #         if player.is_card_in_hand(cardName):
-    #             return player.playerName
-    #
-    # def who_does_not_have(self, cardName):
-    #     player = None
-    #     players = Player.objects.all()
-    #     for player in players:
-    #         if player.is_card_in_hand(cardName):
-    #             continue
-    #     return player.playerName
 
     def get_prior_action_info(self):
         try:
