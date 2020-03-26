@@ -13,7 +13,6 @@ input[type="checkbox"] {
 label {
   border: 1px solid #fff;
   padding: 10px;
- /* display: inline-block;*/
   position: relative;
   margin: 10px;
   cursor: pointer;
@@ -23,7 +22,6 @@ label:before {
   background-color: white;
   color: white;
   content: " ";
- /* display: inline-block;*/
   border-radius: 50%;
   border: 1px solid grey;
   position: absolute;
@@ -126,7 +124,6 @@ tbody td:last-child, thead th:last-child {
 .dropdown {
   position: relative;
   display: block;
-
 }
 
 .dropdown-content {

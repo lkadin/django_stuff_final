@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed dead card opacity">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed final challenge not being recorded in history">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/static/coup/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/coup/static/coup/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/base_generic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/game_over.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/game_over.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/templates/login_screen.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/login_screen.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/static/polls/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -230,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585054325270</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed final challenge not being recorded in history">
+      <created>1585148075528</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585148075528</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,7 +262,8 @@
     <MESSAGE value="Changed draw to cards to keep instead of cards to discard" />
     <MESSAGE value="Changed Layout for cards to pick" />
     <MESSAGE value="Fixed dead card opacity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed dead card opacity" />
+    <MESSAGE value="Fixed final challenge not being recorded in history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed final challenge not being recorded in history" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
