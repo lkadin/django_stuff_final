@@ -1,4 +1,4 @@
-from .models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory
+from .models import Player, Action, Game
 
 
 def take_action():
@@ -9,6 +9,12 @@ def take_action():
         player2 = Player.objects.get(playerName=game.current_player2)
     except:
         player2 = None
+
+    if game.current_action == 'Challenge' and not game.pending_action:
+        print ("Curent action challenge")
+        game.clearCurrent()
+        print ("Action-{}".format(game.current_action))
+        game.save()
 
     if game.current_action == 'Assassinate' and not game.pending_action:
         game.next_turn()

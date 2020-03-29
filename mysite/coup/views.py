@@ -101,6 +101,14 @@ def show_table(request):
     cards = []
     current_player_coins = players.get(playerNumber=game.whoseTurn).coins
     actions = get_allowed_actions()
+
+    # player = game.getPlayerFromPlayerName(game.current_player)
+    # if player.lose_last_card():
+    #     game.finish_turn()
+    #     print ("Just finished turn")
+
+
+
     try:
         action_description = Action.objects.get(name=game.current_action).description
     except:
@@ -165,6 +173,7 @@ def shuffle(request):
 
 
 def lose_influence(request):
+    print("REquest.method={}".format(request.method))
     if request.method == 'POST':
         cardName = request.POST.get('cardnames', None)
         game = Game.objects.all()[0]
@@ -178,6 +187,10 @@ def lose_influence(request):
         else:
             player = game.getPlayerFromPlayerName(game.current_player2)
         if player.lose_last_card():
+            print ("lost last card")
+            game.finish_turn
+            game.clearCurrent()
+            game.save()
             return redirect(show_table)
         return render(request, 'lose_influence.html', {'player': player, 'cards': player.hand.filter(status='D')})
 
@@ -218,6 +231,10 @@ def actions(request):
         get_initial_action_data(request)
         take_action()
     if game.current_action == 'Coup':
+        player = game.getPlayerFromPlayerName(game.current_player2)
+        if player.lose_last_card():
+            return redirect(show_table)
+    if game.current_action == 'Challenge':
         player = game.getPlayerFromPlayerName(game.current_player2)
         if player.lose_last_card():
             return redirect(show_table)
