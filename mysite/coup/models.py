@@ -18,6 +18,9 @@ class ActionHistory(models.Model):
     challenge_winner = models.CharField(max_length=20, null=True, blank=True)
     challenge_loser = models.CharField(max_length=20, null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Action(models.Model):
     name = models.CharField(max_length=20, default="Assassinate")
@@ -121,12 +124,17 @@ class Player(models.Model):
             game.save()
             return True
 
-    def is_card_in_hand(self, card_name):
+    def is_card_in_hand(self, card_name, game):
         card_names = card_name.split(',')
         for card in self.hand.all():
             if card.card.cardName in card_names:
                 if card.status == 'D':
                     return card.card.cardName
+        if game.get_prior_action_info()[0] == 'Draw':
+            for card in game.cards_before_draw:
+                if card in card_names:
+                    if card.status == 'D':
+                        return card
 
 
 class Deck(models.Model):
@@ -198,6 +206,7 @@ class Game(models.Model):
     challenge_winner = models.CharField(max_length=20, null=True, blank=True)
     challenge_loser = models.CharField(max_length=20, null=True, blank=True)
     discards = models.CharField(max_length=60, null=True, blank=True)
+    cards_before_draw = models.CharField(max_length=60, null=True, blank=True)
     second_player = models.CharField(max_length=20, null=True, blank=True)
     in_progress = models.BooleanField(default=False)
     number_of_players = models.IntegerField(default=0)
@@ -328,6 +337,7 @@ class Game(models.Model):
 
         if not self.discardRequired():
             player1 = Player.objects.get(playerName=self.current_player1)
+            self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.all()])
             player1.draw(2)
             self.player2 = None
             self.pending_action = True
@@ -389,6 +399,8 @@ class Game(models.Model):
 
     def finish_turn(self, action=None):
         if action:
+            if action.name in ('Draw', "Income", "Take 3 coins", "Foreign Aid"):
+                self.current_player2 = None
             action_history = ActionHistory(name=action.name, player1=self.current_player1, player2=self.current_player2,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
             action_history.save()
@@ -419,7 +431,7 @@ class Game(models.Model):
         self.challenge_in_progress = False
         self.challenge_winner = None
         self.challenge_loser = None
-        self.discards = None
+        # self.discards = None
 
     def eligiblePlayers(self):
         eligible = []
@@ -490,16 +502,16 @@ class Game(models.Model):
         self.save()
 
     def discard_cards(self, cards_to_keep):
-        cards_to_discard = []
+        self.cards_to_discard = []
         player = Player.objects.get(playerName=self.current_player1)
-        cards_in_hand = player.hand.all()
-        for x in cards_in_hand:
+        self.cards_in_hand = player.hand.filter(status='D')
+        for x in self.cards_in_hand:
             if x.card.cardName not in cards_to_keep:
-                cards_to_discard.append(x.card.cardName)
+                self.cards_to_discard.append(x.card.cardName)
             if x.card.cardName in cards_to_keep:
                 cards_to_keep.remove(x.card.cardName)
 
-        for card in cards_to_discard:
+        for card in self.cards_to_discard:
             player.discard(card)
             player.save()
 
@@ -526,6 +538,7 @@ class Game(models.Model):
 
         self.challenge_in_progress = True
         prior_action_name, prior_player_name, prior_player_name2 = self.get_prior_action_info()
+
         prior_action = Action.objects.get(name=prior_action_name)
         prior_player = Player.objects.get(playerName=prior_player_name)
         current_player = Player.objects.get(playerName=self.current_player1)
@@ -535,7 +548,7 @@ class Game(models.Model):
             return
         self.current_player2 = prior_player_name
         self.save()
-        if prior_player.is_card_in_hand(prior_action.card_required):  # challenge not successful
+        if prior_player.is_card_in_hand(prior_action.card_required, self):  # challenge not successful
             self.challenge_loser = current_player.playerName
             self.challenge_winner = prior_player_name
 
@@ -548,7 +561,7 @@ class Game(models.Model):
                 prepare_to_lose_all_cards()
                 return
 
-            prior_player.swap(prior_player.is_card_in_hand(prior_action.card_required))  # swap out winning card
+            prior_player.swap(prior_player.is_card_in_hand(prior_action.card_required, self))  # swap out winning card
 
         else:  # challenge is successful
 

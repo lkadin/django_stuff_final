@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Clean up css">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed lose all cards to allow next player">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/static/coup/card_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/coup/static/coup/card_count.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/templates/discard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/discard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
@@ -241,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585227030392</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed lose all cards to allow next player">
+      <created>1585488189972</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1585488189972</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -268,7 +277,8 @@
     <MESSAGE value="Fixed dead card opacity" />
     <MESSAGE value="Fixed final challenge not being recorded in history" />
     <MESSAGE value="Clean up css" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean up css" />
+    <MESSAGE value="Fixed lose all cards to allow next player" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed lose all cards to allow next player" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -279,12 +289,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/coup/views.py</url>
-          <line>137</line>
+          <line>130</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/coup/views.py</url>
-          <line>211</line>
+          <line>204</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -102,13 +102,6 @@ def show_table(request):
     current_player_coins = players.get(playerNumber=game.whoseTurn).coins
     actions = get_allowed_actions()
 
-    # player = game.getPlayerFromPlayerName(game.current_player)
-    # if player.lose_last_card():
-    #     game.finish_turn()
-    #     print ("Just finished turn")
-
-
-
     try:
         action_description = Action.objects.get(name=game.current_action).description
     except:

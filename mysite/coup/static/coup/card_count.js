@@ -7,11 +7,6 @@ for (var i=0; i < inputList.length; i++) {
     numChecked = numChecked + 1;
         }
     }
-if (numChecked < 2) {
-alert("You must pick 2 !"); return false;
-} else if (numChecked > 2) {
-alert("You must pick 2 !"); return false;
-}
 return true;
 
 }
