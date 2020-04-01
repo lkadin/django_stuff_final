@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed Draw challenge to check prior cards">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/static/coup/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/coup/static/coup/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/base_generic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/table.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/tests/test_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/tests/test_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-    </list>
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Added rules card" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +250,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585510129529</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added rules card">
+      <created>1585704482675</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1585704482675</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -288,7 +286,8 @@
     <MESSAGE value="Clean up css" />
     <MESSAGE value="Fixed lose all cards to allow next player" />
     <MESSAGE value="Fixed Draw challenge to check prior cards" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Draw challenge to check prior cards" />
+    <MESSAGE value="Added rules card" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rules card" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
