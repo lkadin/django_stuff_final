@@ -7,10 +7,10 @@
 
 
 </head>
-<body oncontextmenu="return false">
+<!--<body oncontextmenu="return false">-->
 
 <style>
-img {
+.cards img{
   width: 40%;
   height: auto;
 }
@@ -24,7 +24,7 @@ img {
   <col width="40%">
   <tr>
     {% for player in players %}
-      <td>
+      <td class="cards">
         <p style=text-align:top;><strong>{{player.playerName}}</strong> has {{player.coins}} coins</p>
         {% for card in player.hand.all %}
             {% if card.status == 'U' %}

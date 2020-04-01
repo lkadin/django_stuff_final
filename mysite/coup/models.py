@@ -19,7 +19,7 @@ class ActionHistory(models.Model):
     challenge_loser = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return "{}->{}->{}".format(self.player1, self.name, str(self.player2 or ''))
 
 
 class Action(models.Model):
@@ -87,9 +87,14 @@ class Player(models.Model):
 
     def swap(self, cardname):
         self.cardname = cardname
+        print("card to swap = {}".format(self.cardname))
+        for card in self.hand:
+            print(cardname)
         self.discard(self.cardname)
         self.draw(1)
         self.save()
+        for card in self.hand:
+            print(cardname)
 
     def discard(self, cardname):
         self.cardname = cardname

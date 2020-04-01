@@ -41,6 +41,10 @@ label img {
   transform-origin: 50% 50%;
 }
 
+.ruleCard img{
+ width: 100%;
+}
+
 :checked + label {
   border-color: #ddd;
 }
@@ -77,9 +81,21 @@ border-spacing: 0;
  border: 2px solid #3498DB;
 }
 
+table.RulesHeader {
+border-spacing: 0;
+ font-weight: bold;
+ font-size: 19px;
+ color: red;
+ border: 2px solid red;
+}
+
 .history {
  font-size: 16px;
  color: #3498DB;
+}
+
+.rules {
+ font-size: 16px;
 }
 
 p {
@@ -108,6 +124,12 @@ thead tr th {
 }
 
 table.HistoryHeader tbody {
+    height: 100 px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.RulesHeader tbody {
     height: 100 px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -144,4 +166,8 @@ tbody td:last-child, thead th:last-child {
 }
 
 
+
+
+
 .show {display: block;}
+

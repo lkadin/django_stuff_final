@@ -84,7 +84,16 @@ class GameModelTest(TestCase):
         self.assertEqual(player.hand.filter(status='D').count(), 1)
         self.assertEqual(player.cardcount(), 2)
 
+        # test swap card
+        cards_in_hand = list(player.hand.all())
+        # print(cards_in_hand)
+        player.swap(player.hand.filter(status='D')[0])
+        new_cards_in_hand = list(player.hand.all())
+        # print(new_cards_in_hand)
+        self.assertNotEqual(player.hand.all()[0], new_cards_in_hand[0])
+
         # test next turn
         next_turn = game.whoseTurn + 1
         game.next_turn()
         self.assertEqual(game.whoseTurn, next_turn)
+

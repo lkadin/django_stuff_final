@@ -97,8 +97,10 @@ window.onclick = function(event) {
 
 
 
-                </script>
 
+
+
+                </script>
 
                 </body>
                 </html>
@@ -150,7 +152,7 @@ window.onclick = function(event) {
                         <tbody>
                         {% for event in actionhistory %}
                         <tr>
-                            <td class="history">{{event.player1}} -> {{ event.name }} -> {{ event.player2}}</td>
+                            <td class="history">{{event}}</td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -169,19 +171,49 @@ window.onclick = function(event) {
                     <p>{{game.challenge_winner}} won the challenge | {{game.challenge_loser}} needs to lose
                         influence</p>
                     {% endif %}
-
             </ul>
 
 
+            <!--            <table class="RulesHeader">-->
+            <!--    <thead>-->
+            <!--    <tr>-->
+            <!--        <th>Action</th>-->
+            <!--        <th>Effect</th>-->
+            <!--        <th>Counteraction</th>-->
+            <!--    </tr>-->
+            <!--    </thead>-->
+            <!--    <tbody>-->
+            <!--    <tr>-->
+            <!--        <td class="rules">-&#45;&#45;&#45;&#45;</td>-->
+            <!--        <td class="rules">Income</td>-->
+            <!--        <td class="rules">Take 1 coin</td>-->
+            <!--        <td class="rules">X</td>-->
+            <!--    </tr>-->
+            <!--    </tbody>-->
+            <!--</table>-->
+
             {% endblock %}
 
+
         </div>
-        <div class="col-sm-10 ">
+        <div class="col-sm-10">
             {% block content %}{% endblock %}
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-10" >
+            <br>
+            <img src="/static/images/coup_rules_card.jpg" width="100%" height="auto">
         </div>
     </div>
 
 </div>
+
 
 </body>
 </html>
