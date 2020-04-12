@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Added rules card">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/action.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/base_generic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed playing out of turn">
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -265,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585704703228</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixed playing out of turn">
+      <created>1586706818854</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1586706818854</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -294,9 +295,18 @@
     <MESSAGE value="Fixed lose all cards to allow next player" />
     <MESSAGE value="Fixed Draw challenge to check prior cards" />
     <MESSAGE value="Added rules card" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added rules card" />
+    <MESSAGE value="Fixed playing out of turn" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed playing out of turn" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1586706816460">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586706816460" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1586706823636">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586706823636" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586693735675">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

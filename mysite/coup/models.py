@@ -87,14 +87,9 @@ class Player(models.Model):
 
     def swap(self, cardname):
         self.cardname = cardname
-        print("card to swap = {}".format(self.cardname))
-        for card in self.hand:
-            print(cardname)
         self.discard(self.cardname)
         self.draw(1)
         self.save()
-        for card in self.hand:
-            print(cardname)
 
     def discard(self, cardname):
         self.cardname = cardname
