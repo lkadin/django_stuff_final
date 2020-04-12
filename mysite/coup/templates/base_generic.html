@@ -108,7 +108,7 @@ window.onclick = function(event) {
                 {% for action in actions %}
                 <li>
                     {% if action.name not in 'Steal,Assassinate,Coup,Challenge,Draw' %}
-                    <a href="/coup/{{action.url}}?action={{action}}&playerName={{current_player_name}}&name={{prior_player_name}}"
+                    <a href="/coup/{{action.url}}?action={{action}}&playerName={{current_player_name}}"
                        @name>
                         <button class="hi">{{action}}</button>
                     </a>
@@ -121,7 +121,8 @@ window.onclick = function(event) {
                     {% endif %}
 
                     {% if action.name == 'Draw'%}
-                    <a href="/coup/draw?playerName={{current_player_name}}&name={{prior_player_name}}" @name>
+<!--                    <a href="/coup/draw?playerName={{current_player_name}}&name={{prior_player_name}}" @name>-->
+                    <a href="/coup/draw?playerName={{current_player_name}}" @name>
                         <button class="hi">{{action}}</button>
                     </a>
                     {% endif %}

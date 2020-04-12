@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory, Function
+from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory
 from .action import get_initial_action_data, take_action, getrequest, finish_challenge
 import random
 
@@ -129,7 +129,8 @@ def show_table(request):
         return render(
             request,
             'game_over.html',
-            context={'players': players, 'actions': actions, 'game': game, 'winner': game.ck_winner(),'actionhistory': action_history}
+            context={'players': players, 'actions': actions, 'game': game, 'winner': game.ck_winner(),
+                     'actionhistory': action_history}
         )
 
 
@@ -180,7 +181,7 @@ def lose_influence(request):
         else:
             player = game.getPlayerFromPlayerName(game.current_player2)
         if player.lose_last_card():
-            print ("lost last card")
+            print("lost last card")
             game.finish_turn
             game.clearCurrent()
             game.save()
@@ -217,8 +218,16 @@ def draw(request):
 
 
 def actions(request):
+    def your_turn():
+        game = Game.objects.all()[0]
+        request_name = request.GET.get('playerName', None)
+        if game.currentPlayerName() == request_name:
+            return True
+
     get_initial_action_data(request)
-    take_action()
+    ###check if it's your turn for anything besides Challenge, Coup
+    if your_turn():
+        take_action()
     game = Game.objects.all()[0]
     if game.challenge_in_progress:
         get_initial_action_data(request)
@@ -246,6 +255,12 @@ def set_coins(request):
         player.coins = 8
         player.save()
     return redirect(show_table)
+
+
+def packing_slip(request):
+    order = {"number": 170, "name": "CARNIVAL CONQUEST", "address1": "PORT OF MIAMI", "city": "MIAMI",
+             "state": "FLORIDA", "zip": "33132"}
+    return render(request, 'packing_slip.html', {'order': order})
 
 
 def clear_lobby(request):

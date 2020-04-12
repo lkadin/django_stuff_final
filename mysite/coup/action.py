@@ -11,9 +11,9 @@ def take_action():
         player2 = None
 
     if game.current_action == 'Challenge' and not game.pending_action:
-        print ("Curent action challenge")
+        print("Curent action challenge")
         game.clearCurrent()
-        print ("Action-{}".format(game.current_action))
+        print("Action-{}".format(game.current_action))
         game.save()
 
     if game.current_action == 'Assassinate' and not game.pending_action:
@@ -32,7 +32,9 @@ def take_action():
         game.next_turn()
         game.take_foreign_aid(player1)
 
+    # if game.current_action == "Take 3 coins" and game.whoseTurn == game.currentPlayerName():
     if game.current_action == "Take 3 coins":
+        # print ("Player 1 = {} but it's {} {}'s turn".format(player1,game.whoseTurn,game.currentPlayerName()))
         game.next_turn()
         game.take_3_coins(player1)
 
@@ -69,6 +71,7 @@ def finish_challenge():
     player1.save()
     game.finish_turn(action)
     return
+
 
 def get_initial_action_data(request):
     game = Game.objects.all()[0]

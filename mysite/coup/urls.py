@@ -13,6 +13,7 @@ urlpatterns += [
     path('showTable', views.show_table, name='showTable'),
     ]
 
+
 urlpatterns += [
     path('showDeck', views.show_deck, name='showDeck'),
     ]
@@ -49,3 +50,7 @@ urlpatterns += [
 urlpatterns += [
     path('clear_lobby', views.clear_lobby, name='clear_lobby'),
 ]
+
+urlpatterns += [
+    path('packing_slip', views.packing_slip, name='packing_slip'),
+    ]

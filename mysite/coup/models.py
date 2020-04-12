@@ -406,6 +406,7 @@ class Game(models.Model):
         if action:
             if action.name in ('Draw', "Income", "Take 3 coins", "Foreign Aid"):
                 self.current_player2 = None
+                self.save()
             action_history = ActionHistory(name=action.name, player1=self.current_player1, player2=self.current_player2,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
             action_history.save()
@@ -591,6 +592,7 @@ class Game(models.Model):
         self.current_action = 'Challenge'
 
     def get_prior_action_info(self):
+        prior_player_name2 = None
         try:
             prior_action_name = ActionHistory.objects.all().order_by('-id')[0].name
             prior_player_name = ActionHistory.objects.all().order_by('-id')[0].player1
@@ -598,7 +600,7 @@ class Game(models.Model):
         except:
             prior_action_name = None
             prior_player_name = None
-            prior_player_name2 = None
+
         return prior_action_name, prior_player_name, prior_player_name2
 
     def get_second_prior_action_info(self):
