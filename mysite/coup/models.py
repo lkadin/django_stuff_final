@@ -87,8 +87,10 @@ class Player(models.Model):
 
     def swap(self, cardname):
         self.cardname = cardname
+        print("card to swap  - {}".format(cardname))
         self.discard(self.cardname)
         self.draw(1)
+        print(self.hand)
         self.save()
 
     def discard(self, cardname):
@@ -125,16 +127,24 @@ class Player(models.Model):
             return True
 
     def is_card_in_hand(self, card_name, game):
+        print("is {} in hand".format(card_name))
         card_names = card_name.split(',')
         for card in self.hand.all():
             if card.card.cardName in card_names:
                 if card.status == 'D':
-                    return card.card.cardName
+                    print("Yes")
+                    return card.card.cardName, 'Current'
+                else:
+                    return False,"Current"
+
+        print("was card {}  from prior action {} in hand".format(card_name, game.get_prior_action_info()[0]))
         if game.get_prior_action_info()[0] == 'Draw':
-            for card in game.cards_before_draw:
+            for card in game.cards_before_draw.split():
+                print(card)
                 if card in card_names:
-                    if card.status == 'D':
-                        return card
+                    print("Yes")
+                    return card, 'Prior'
+        return False, 'Prior'
 
 
 class Deck(models.Model):
@@ -179,6 +189,7 @@ class Deck(models.Model):
         self.card = CardInstance.objects.get(shuffle_order=self.max)
         self.card.shuffle_order = None
         self.card.save()
+        print("swapped card - {}".format(self.card))
         return self.card
 
     def return_card(self, card):
@@ -549,7 +560,8 @@ class Game(models.Model):
             return
         self.current_player2 = prior_player_name
         self.save()
-        if prior_player.is_card_in_hand(prior_action.card_required, self):  # challenge not successful
+        self.card_in_hand, self.where_from = prior_player.is_card_in_hand(prior_action.card_required, self)
+        if self.card_in_hand:  # challenge not successful
             self.challenge_loser = current_player.playerName
             self.challenge_winner = prior_player_name
 
@@ -561,8 +573,8 @@ class Game(models.Model):
             if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
                 return
-
-            prior_player.swap(prior_player.is_card_in_hand(prior_action.card_required, self))  # swap out winning card
+            if self.where_from == 'Current':
+                prior_player.swap(self.card_in_hand)  # swap out winning card
 
         else:  # challenge is successful
 
