@@ -44,7 +44,6 @@ def startgame(request):
 def show_table(request):
     def get_allowed_actions():
         prior_action_name, prior_player_name, prior_player_name2 = game.get_prior_action_info()
-
         if request.user.get_username() == game.currentPlayerName():
             if current_player_coins >= 10:
                 actions = Action.objects.filter(name="Coup")
@@ -58,6 +57,7 @@ def show_table(request):
                     actions = actions.union(block_foriegn_aid)
 
         if request.user.get_username() != game.currentPlayerName():
+
             if prior_action_name not in (
                     'Income', 'Challenge', 'Lose Influence',
                     None) and request.user.get_username() != prior_player_name:
@@ -90,9 +90,14 @@ def show_table(request):
         if not request.user.get_username():
             actions = []
 
+        request_player = Player.objects.get(playerName=request.user.get_username())
+        if request_player.influence() ==0:
+            actions = []
+
         if prior_action_name == 'Steal' and request.user.get_username() == prior_player_name2:
             block_steal = Action.objects.filter(name__in=['Block Steal'])
             actions = actions.union(block_steal)
+        print(actions)
         return actions
 
     players = Player.objects.all()
