@@ -443,8 +443,8 @@ class Game(models.Model):
         self.challenge_in_progress = False
         self.challenge_winner = None
         self.challenge_loser = None
-        self.discards = None
-        self.cards_before_draw = None
+        # self.discards = None
+        # self.cards_before_draw = None
 
     def eligiblePlayers(self):
         eligible = []
