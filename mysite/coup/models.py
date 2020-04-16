@@ -474,7 +474,11 @@ class Game(models.Model):
         for self.card in self.cards:
             self.player.lose_influence(self.card.card.cardName)
         self.pending_action = False
-        action_history = ActionHistory(name='Challenge', player1=self.current_player2, player2=self.card.card.cardName,
+        action_history = ActionHistory(name='Challenge', player1=self.challenge_loser, player2=self.challenge_winner,
+                                       challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
+        action_history.save()
+        action_history = ActionHistory(name='Lose Influence', player1=self.challenge_loser,
+                                       player2=self.card.card.cardName,
                                        challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
         action_history.save()
 
