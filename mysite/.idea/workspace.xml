@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fixed Challenge being an option after no influence left">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Added clear discards and clear cards before draw to clear current">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/start_coup.bat" beforeDir="false" afterPath="$PROJECT_DIR$/coup/start_coup.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +289,21 @@
       <option name="project" value="LOCAL" />
       <updated>1586963689956</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added clear discards and clear cards before draw to clear current">
+      <created>1586980324768</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1586980324768</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Removed clear discards and clear cards before draw to clear current">
+      <created>1586980860613</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1586980860613</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -323,19 +336,21 @@
     <MESSAGE value="Fixed swap card after challenge" />
     <MESSAGE value="Fixed swap card after challenge part 2" />
     <MESSAGE value="Fixed Challenge being an option after no influence left" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Challenge being an option after no influence left" />
+    <MESSAGE value="Added clear discards and clear cards before draw to clear current" />
+    <MESSAGE value="Removed clear discards and clear cards before draw to clear current" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed clear discards and clear cards before draw to clear current" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1586963688957">
+    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1586980859869">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="587" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1586707381332" />
-    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586963688957" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1586963695119">
+    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586980859869" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1586980865821">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1586707398256" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586963695119" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586980865821" />
     <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586802419109">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

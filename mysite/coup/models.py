@@ -135,7 +135,7 @@ class Player(models.Model):
                     print("Yes")
                     return card.card.cardName, 'Current'
                 else:
-                    return False,"Current"
+                    return False, "Current"
 
         print("was card {}  from prior action {} in hand".format(card_name, game.get_prior_action_info()[0]))
         if game.get_prior_action_info()[0] == 'Draw':
@@ -242,6 +242,8 @@ class Game(models.Model):
         self.add_all_cards()
         self.del_card_instances()
         self.build_cards()
+        self.cards_before_draw = None
+        self.discards = None
         deck = Deck(id=1)
         deck.save()
         deck.build()
@@ -348,7 +350,8 @@ class Game(models.Model):
 
         if not self.discardRequired():
             player1 = Player.objects.get(playerName=self.current_player1)
-            self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.all()])
+            # self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.all()])
+            self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.filter(status='D')])
             player1.draw(2)
             self.player2 = None
             self.pending_action = True
