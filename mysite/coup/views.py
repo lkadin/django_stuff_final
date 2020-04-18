@@ -91,7 +91,7 @@ def show_table(request):
             actions = []
 
         request_player = Player.objects.get(playerName=request.user.get_username())
-        if request_player.influence() ==0:
+        if request_player.influence() == 0:
             actions = []
 
         if prior_action_name == 'Steal' and request.user.get_username() == prior_player_name2:
@@ -226,11 +226,12 @@ def actions(request):
     def your_turn():
         game = Game.objects.all()[0]
         request_name = request.GET.get('playerName', None)
-        if game.currentPlayerName() == request_name:
+        action_name = request.GET.get('action', None)
+        if game.currentPlayerName() == request_name or action_name == 'Block Steal':
             return True
 
     get_initial_action_data(request)
-    ###check if it's your turn for anything besides Challenge, Coup
+    ###check if it's your turn for anything besides Challenge, Coup , Block Steal
     if your_turn():
         take_action()
     game = Game.objects.all()[0]
