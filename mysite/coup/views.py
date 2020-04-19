@@ -97,7 +97,6 @@ def show_table(request):
         if prior_action_name == 'Steal' and request.user.get_username() == prior_player_name2:
             block_steal = Action.objects.filter(name__in=['Block Steal'])
             actions = actions.union(block_steal)
-        print(actions)
         return actions
 
     players = Player.objects.all()
@@ -172,7 +171,6 @@ def shuffle(request):
 
 
 def lose_influence(request):
-    print("REquest.method={}".format(request.method))
     if request.method == 'POST':
         cardName = request.POST.get('cardnames', None)
         game = Game.objects.all()[0]
@@ -241,10 +239,13 @@ def actions(request):
     if game.current_action == 'Coup':
         player = game.getPlayerFromPlayerName(game.current_player2)
         if player.lose_last_card():
+            print("Cleat current - Coup?")
             return redirect(show_table)
     if game.current_action == 'Challenge':
         player = game.getPlayerFromPlayerName(game.current_player2)
+        print(player)
         if player.lose_last_card():
+            print("CLear current -  Challenge")
             return redirect(show_table)
     return redirect(show_table)
 

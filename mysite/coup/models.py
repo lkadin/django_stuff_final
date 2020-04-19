@@ -87,10 +87,7 @@ class Player(models.Model):
 
     def swap(self, cardname):
         self.cardname = cardname
-        print("card to swap  - {}".format(cardname))
-        self.discard(self.cardname)
         self.draw(1)
-        print(self.hand)
         self.save()
 
     def discard(self, cardname):
@@ -123,26 +120,22 @@ class Player(models.Model):
             return True
         else:
             game.finish_lose_influence(self.hand.filter(status='D')[0].card.cardName)
+            print("lost last card - clear current??")
             game.save()
             return True
 
     def is_card_in_hand(self, card_name, game):
-        print("is {} in hand".format(card_name))
         card_names = card_name.split(',')
         for card in self.hand.all():
             if card.card.cardName in card_names:
                 if card.status == 'D':
-                    print("Yes")
                     return card.card.cardName, 'Current'
                 else:
                     return False, "Current"
 
-        print("was card {}  from prior action {} in hand".format(card_name, game.get_prior_action_info()[0]))
         if game.get_prior_action_info()[0] == 'Draw':
             for card in game.cards_before_draw.split():
-                print(card)
                 if card in card_names:
-                    print("Yes")
                     return card, 'Prior'
         return False, 'Prior'
 
@@ -189,7 +182,6 @@ class Deck(models.Model):
         self.card = CardInstance.objects.get(shuffle_order=self.max)
         self.card.shuffle_order = None
         self.card.save()
-        print("swapped card - {}".format(self.card))
         return self.card
 
     def return_card(self, card):
@@ -495,6 +487,7 @@ class Game(models.Model):
             action_history.save()
             self.pending_action = False
             self.challenge_in_progress = False
+
             self.clearCurrent()
 
         if action.name == "Challenge":
@@ -552,9 +545,9 @@ class Game(models.Model):
             self.lose_all_cards(self.challenge_loser)
             self.save()
             self.challenge_in_progress = False
+            self.clearCurrent()
             self.save()
-
-            self.save()
+            print ("Cleared current")
 
         self.challenge_in_progress = True
         prior_action_name, prior_player_name, prior_player_name2 = self.get_prior_action_info()
