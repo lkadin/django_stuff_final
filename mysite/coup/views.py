@@ -225,11 +225,11 @@ def actions(request):
         game = Game.objects.all()[0]
         request_name = request.GET.get('playerName', None)
         action_name = request.GET.get('action', None)
-        if game.currentPlayerName() == request_name or action_name == 'Block Steal':
+        if game.currentPlayerName() == request_name or action_name == 'Block Steal' or action_name == 'Block Assassinate':
             return True
 
     get_initial_action_data(request)
-    ###check if it's your turn for anything besides Challenge, Coup , Block Steal
+    ###check if it's your turn for anything besides Challenge, Coup , Block Steal, Block Assasinate
     if your_turn():
         take_action()
     game = Game.objects.all()[0]
@@ -239,7 +239,6 @@ def actions(request):
     if game.current_action == 'Coup':
         player = game.getPlayerFromPlayerName(game.current_player2)
         if player.lose_last_card():
-            print("Cleat current - Coup?")
             return redirect(show_table)
     if game.current_action == 'Challenge':
         player = game.getPlayerFromPlayerName(game.current_player2)
