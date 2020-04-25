@@ -87,6 +87,7 @@ class Player(models.Model):
 
     def swap(self, cardname):
         self.cardname = cardname
+        self.discard(self.cardname)
         self.draw(1)
         self.save()
 
@@ -120,7 +121,6 @@ class Player(models.Model):
             return True
         else:
             game.finish_lose_influence(self.hand.filter(status='D')[0].card.cardName)
-            print("lost last card - clear current??")
             game.save()
             return True
 
@@ -547,7 +547,6 @@ class Game(models.Model):
             self.challenge_in_progress = False
             self.clearCurrent()
             self.save()
-            print ("Cleared current")
 
         self.challenge_in_progress = True
         prior_action_name, prior_player_name, prior_player_name2 = self.get_prior_action_info()
