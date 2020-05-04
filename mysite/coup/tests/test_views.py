@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 # Create your tests here.
-from ..models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory
+# from ..models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory
 from django.urls import reverse
 
 

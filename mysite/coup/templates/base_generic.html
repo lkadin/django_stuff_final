@@ -122,7 +122,7 @@ window.onclick = function(event) {
 
                     {% if action.name == 'Draw'%}
                     <a href="/coup/draw?playerName={{current_player_name}}" @name>
-                        <button class="hi">{{action}}</button>
+                        <button class="hi">Exchange</button>
                     </a>
                     {% endif %}
 
@@ -172,25 +172,6 @@ window.onclick = function(event) {
                         influence</p>
                     {% endif %}
             </ul>
-
-
-            <!--            <table class="RulesHeader">-->
-            <!--    <thead>-->
-            <!--    <tr>-->
-            <!--        <th>Action</th>-->
-            <!--        <th>Effect</th>-->
-            <!--        <th>Counteraction</th>-->
-            <!--    </tr>-->
-            <!--    </thead>-->
-            <!--    <tbody>-->
-            <!--    <tr>-->
-            <!--        <td class="rules">-&#45;&#45;&#45;&#45;</td>-->
-            <!--        <td class="rules">Income</td>-->
-            <!--        <td class="rules">Take 1 coin</td>-->
-            <!--        <td class="rules">X</td>-->
-            <!--    </tr>-->
-            <!--    </tbody>-->
-            <!--</table>-->
 
             {% endblock %}
 
