@@ -172,9 +172,9 @@ def shuffle(request):
 
 def lose_influence(request):
     if request.method == 'POST':
-        cardName = request.POST.get('cardnames', None)
+        card_name = request.POST.get('cardnames', None)
         game = Game.objects.all()[0]
-        game.finish_lose_influence(cardName)
+        game.finish_lose_influence(card_name)
         game.save()
         return redirect(show_table)
     else:
@@ -250,6 +250,7 @@ def actions(request):
 
 
 def lose_one_card(request):
+    print ("Lose one card")
     for player in Player.objects.all():
         cardname = player.hand.all()[0].card.cardName
         player.lose_influence(cardname)

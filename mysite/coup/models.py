@@ -397,9 +397,10 @@ class Game(models.Model):
         self.pending_action = False
         self.save()
 
-    def next_turn(self, force=False):
+    def next_turn(self):
         self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
         while not Player.objects.get(playerNumber=self.whoseTurn).influence():
+                  Player.objects.get(playerNumber=self.whoseTurn))
             self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
 
     def finish_turn(self, action=None):
@@ -472,34 +473,26 @@ class Game(models.Model):
                                        player2=self.card.card.cardName,
                                        challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
         action_history.save()
+        if not self.player.influence() and self.whoseTurn == self.player.playerNumber:
+            self.next_turn()
 
     def finish_lose_influence(self, card_name):
         action = Action.objects.get(name=self.current_action)
-        prior_action_name, prior_player_name, prior_player_name2 = self.get_prior_action_info()
         if action.name != 'Challenge':
-            player2 = self.getPlayerFromPlayerName(self.current_player2)
-            player2.lose_influence(card_name)
-            player2.save()
-
+            player = self.getPlayerFromPlayerName(self.current_player2)
             action_history = ActionHistory(name='Lose Influence', player1=self.current_player2, player2=card_name,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
-            action_history.save()
-            self.pending_action = False
-            self.challenge_in_progress = False
-
-            self.clearCurrent()
 
         if action.name == "Challenge":
-            loser = self.getPlayerFromPlayerName(self.challenge_loser)
-            loser.lose_influence(card_name)
-            loser.save()
+            player = self.getPlayerFromPlayerName(self.challenge_loser)
             action_history = ActionHistory(name='Lose Influence', player1=self.challenge_loser, player2=card_name,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
-            action_history.save()
-            self.current_player2 = prior_player_name
-            self.challenge_in_progress = False
-            self.pending_action = False
-            self.clearCurrent()
+        action_history.save()
+        player.lose_influence(card_name)
+        if not player.influence() and self.whoseTurn == player.playerNumber:
+            self.next_turn()
+        player.save()
+        self.clearCurrent()
         self.save()
 
     def getPlayerFromPlayerName(self, playerName):
@@ -540,8 +533,8 @@ class Game(models.Model):
     def challenge(self):
 
         def prepare_to_lose_all_cards():
-            self.finish_turn()
             self.lose_all_cards(self.challenge_loser)
+            self.finish_turn()
             self.save()
             self.challenge_in_progress = False
             self.clearCurrent()

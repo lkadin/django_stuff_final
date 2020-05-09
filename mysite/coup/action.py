@@ -11,6 +11,7 @@ def take_action():
         player2 = None
 
     if game.current_action == 'Challenge' and not game.pending_action:
+        game.next_turn()
         game.clearCurrent()
         game.save()
 
