@@ -400,7 +400,6 @@ class Game(models.Model):
     def next_turn(self):
         self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
         while not Player.objects.get(playerNumber=self.whoseTurn).influence():
-                  Player.objects.get(playerNumber=self.whoseTurn))
             self.whoseTurn = (self.whoseTurn + 1) % self.number_of_players
 
     def finish_turn(self, action=None):

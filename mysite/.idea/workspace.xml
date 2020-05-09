@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Changed  Draw button to say Exchange">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/action.py" afterDir="false" />
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fix lose last card on challenge if it's your turn">
       <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -345,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588623447375</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fix lose last card on challenge if it's your turn">
+      <created>1589039661916</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1589039661916</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -361,7 +363,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make Images dynamic size" />
     <MESSAGE value="Fix setting game action to Draw" />
     <MESSAGE value="Fix draw refresh to cause crash" />
     <MESSAGE value="Login / Logout should take you back to correct place" />
@@ -386,17 +387,18 @@
     <MESSAGE value="Fix swap out card not discarding" />
     <MESSAGE value="Fix block assassinate" />
     <MESSAGE value="Changed  Draw button to say Exchange" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed  Draw button to say Exchange" />
+    <MESSAGE value="Fix lose last card on challenge if it's your turn" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix lose last card on challenge if it's your turn" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587670981127">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587670981127" />
-    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1588623445134">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="587" y="88" key="CommitChangelistDialog2" timestamp="1589039660891">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="587" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587849662565" />
+    <state x="587" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589039660891" />
     <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588623445134" />
     <state x="783" y="444" key="FileChooserDialogImpl" timestamp="1588534673387">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -427,10 +429,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588534684491" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1588623452045">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1589039667633">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587849668990" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589039667633" />
     <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588623452045" />
     <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588184544757">
       <screen x="0" y="0" width="1920" height="1040" />
