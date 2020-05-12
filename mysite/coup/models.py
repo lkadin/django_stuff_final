@@ -341,7 +341,6 @@ class Game(models.Model):
 
         if not self.discardRequired():
             player1 = Player.objects.get(playerName=self.current_player1)
-            # self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.all()])
             self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.filter(status='D')])
             player1.draw(2)
             self.player2 = None

@@ -10,18 +10,15 @@
 <body>
 
 
-<form id="actions" method="post" > {% csrf_token %}
+<form id="actions" method="post" onsubmit="return checkboxlimit(document.getElementsByName('cardnames'), {{cards|length}}-2);"> {% csrf_token %}
     {% for card in cards %}
     <input type="checkbox" class="chk" name="cardnames" id={{forloop.counter}} value={{ card.card.cardName }}>
-        <label for={{forloop.counter}}><img class="img" src="/static/images/{{card}}.jpg" height="350"/></label>
-    <script>var limit={{forloop.counter}}-2</script>
+    <label for={{forloop.counter}}><img class="img" src="/static/images/{{card}}.jpg" height="350"/></label>
     {% endfor %}
 
     <p> Which cards do you want to keep?</p>
     <input type="submit" id="test" value="Submit">
 </form>
-<script>
-checkboxlimit(document.forms.actions.cardnames,limit )
-</script>
+
 </body>
 </html>

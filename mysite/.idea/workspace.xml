@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fix lose last card on challenge if it's your turn">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fix typo">
+      <change afterPath="$PROJECT_DIR$/coup/templates/card_count2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/static/coup/card_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/coup/static/coup/card_count.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/templates/discard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/discard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/templates/lose_influence.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/lose_influence.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +37,13 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/coup/templates" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Python\django_stuff\mysite\coup\templates" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Python\django_stuff\mysite\coup\templates" />
     </key>
@@ -347,8 +356,25 @@
       <option name="project" value="LOCAL" />
       <updated>1589039661916</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Fix lose last card on challenge if it's your turn">
+      <created>1589040055524</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1589040055524</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -395,50 +421,54 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587670981127" />
-    <state x="587" y="88" key="CommitChangelistDialog2" timestamp="1589039660891">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1589040068032">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="587" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589039660891" />
-    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588623445134" />
+    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589040068032" />
+    <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1589314633880">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589314633880" />
     <state x="783" y="444" key="FileChooserDialogImpl" timestamp="1588534673387">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="783" y="444" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588534673387" />
     <state x="2703" y="444" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587759297686" />
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom" timestamp="1588083091214">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="274" key="GridCell.Tab.0.bottom" timestamp="1589313414349">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588083091214" />
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588027682252" />
-    <state width="1899" height="274" key="GridCell.Tab.0.center" timestamp="1588083091214">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589313414349" />
+    <state width="1899" height="274" key="GridCell.Tab.0.center" timestamp="1589313414349">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588083091214" />
-    <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588027682252" />
-    <state width="1899" height="274" key="GridCell.Tab.0.left" timestamp="1588083091214">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589313414349" />
+    <state width="1899" height="274" key="GridCell.Tab.0.left" timestamp="1589313414349">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588083091214" />
-    <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588027682252" />
-    <state width="1899" height="274" key="GridCell.Tab.0.right" timestamp="1588083091214">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589313414349" />
+    <state width="1899" height="274" key="GridCell.Tab.0.right" timestamp="1589313414349">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588083091214" />
-    <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588027682252" />
+    <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589313414349" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1588534684491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588534684491" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1589039667633">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1589040074412">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589039667633" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588623452045" />
-    <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588184544757">
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589040074412" />
+    <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1589314267452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="2026" y="158" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1587849472249" />
-    <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1588184544757" />
+    <state x="-7" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589198376336" />
+    <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589314267452" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
