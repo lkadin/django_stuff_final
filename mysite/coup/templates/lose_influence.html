@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form id="actions" method="post"> {% csrf_token %}
+<form id="actions" method="post" onsubmit="return checkboxlimit(document.getElementsByName('cardnames'), 1);"> {% csrf_token %}
     {% for card in cards %}
     {{ card.card.cardName }}
     <input type="checkbox" class="chk" name="cardnames" id={{forloop.counter}} value={{ card.card.cardName }}>
@@ -19,11 +19,6 @@
     <p> Which card do you want to lose?</p>
     <input type="submit" value="Submit">
 </form>
-
-<script type="text/javascript">
-checkboxlimit(document.forms.actions.cardnames, 1)
-
-</script>
 
 </body>
 </html>
