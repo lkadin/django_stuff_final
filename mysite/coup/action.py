@@ -12,7 +12,7 @@ def take_action():
 
     if game.current_action == 'Challenge' and not game.pending_action:
         game.next_turn()
-        game.clearCurrent()
+        game.clear_current()
         game.save()
 
     if game.current_action == 'Assassinate' and not game.pending_action:

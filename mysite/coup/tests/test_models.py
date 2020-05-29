@@ -45,7 +45,7 @@ class GameModelTest(TestCase):
     def test_initial_deal(self):
         player = Player.objects.all()[0]
         deck = Deck(id=1)
-        self.assertEqual(deck.cardsremaining(), 7)
+        self.assertEqual(deck.cards_remaining(), 7)
         self.assertEqual(CardInstance.objects.all().count(), 15)
         self.assertEqual(Player.objects.all().count(), 4)
         self.assertEqual(player.cardcount(), 2)
@@ -181,7 +181,7 @@ class GameModelTest(TestCase):
 
     def test_cards_remaining(self):
         deck = Deck(id=1)
-        self.assertEqual(deck.cardsremaining(), 7)
+        self.assertEqual(deck.cards_remaining(), 7)
 
     def test_add_all_actions(self):
         actions = Action.objects.all()

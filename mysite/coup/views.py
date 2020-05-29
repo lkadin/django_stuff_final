@@ -26,12 +26,10 @@ def index(request):
 def startgame(request):
     game = Game.objects.all()[0]
     lobby_visitors = Lobby.objects.all()
-    # if game.in_progress:
-    #     return redirect(index)
     if len(lobby_visitors) < 2:
         return redirect(index)
     game.initialize()
-    game.clearCurrent()
+    game.clear_current()
     game.whoseTurn = random.randint(0, game.number_of_players - 1)
     game.save()
     Deck.objects.all().delete()
@@ -44,7 +42,7 @@ def startgame(request):
 def show_table(request):
     def get_allowed_actions():
         prior_action_name, prior_player_name, prior_player_name2 = game.get_prior_action_info()
-        if request.user.get_username() == game.currentPlayerName():
+        if request.user.get_username() == game.current_player_name():
             if current_player_coins >= 10:
                 actions = Action.objects.filter(name="Coup")
             else:
@@ -56,7 +54,7 @@ def show_table(request):
                     block_foriegn_aid = Action.objects.filter(name__in=['Block Foreign Aid'])
                     actions = actions.union(block_foriegn_aid)
 
-        if request.user.get_username() != game.currentPlayerName():
+        if request.user.get_username() != game.current_player_name():
 
             if prior_action_name not in (
                     'Income', 'Challenge', 'Lose Influence',
@@ -123,7 +121,7 @@ def show_table(request):
             context={'players': players, 'actions': actions, 'game': game,
                      'current_player_name': request.user.username, 'actionhistory': action_history, 'cards': cards,
                      'current_player_coins': current_player_coins, 'action_description': action_description,
-                     'eligible': game.eligiblePlayers(), 'eligible_coup_assassinate': game.eligibleCoupAssassinate(),
+                     'eligible': game.eligible_players(), 'eligible_coup_assassinate': game.eligibleCoupAssassinate(),
                      'prior_player_name': prior_player_name}
         )
     else:
@@ -140,7 +138,9 @@ def show_table(request):
 
 def show_deck(request):
     deck = Deck.objects.all()[0]
-    cards_remaining = deck.cardsremaining
+    cards_remaining = deck.cards_remaining
+    for card in deck.cards.all().order_by('shuffle_order'):
+        print(card,card.shuffle_order)
     return render(
         request,
         'show_deck.html',
@@ -180,13 +180,13 @@ def lose_influence(request):
     else:
         game = Game.objects.all()[0]
         if game.current_action == 'Challenge':
-            player = game.getPlayerFromPlayerName(game.challenge_loser)
+            player = game.get_player_from_player_name(game.challenge_loser)
         else:
-            player = game.getPlayerFromPlayerName(game.current_player2)
+            player = game.get_player_from_player_name(game.current_player2)
         if player.lose_last_card():
             print("lost last card")
             game.finish_turn
-            game.clearCurrent()
+            game.clear_current()
             game.save()
             return redirect(show_table)
         return render(request, 'lose_influence.html', {'player': player, 'cards': player.hand.filter(status='D')})
@@ -195,6 +195,7 @@ def lose_influence(request):
 def challenge(request):
     getrequest(request)
     game = Game.objects.all()[0]
+    game.challenger = request.user.username
     game.pending_action = True
     game.current_action = 'Challenge'
     game.challenge_in_progress = True
@@ -212,7 +213,7 @@ def draw(request):
     game = Game.objects.all()[0]
     game.current_action = 'Draw'
     if not game.draw():
-        player = game.getPlayerFromPlayerName(game.current_player1)
+        player = game.get_player_from_player_name(game.current_player1)
         return render(request, 'discard.html', {'player': player, 'cards': player.hand.filter(status='D')})
     else:
         game.next_turn()
@@ -225,11 +226,10 @@ def actions(request):
         game = Game.objects.all()[0]
         request_name = request.GET.get('playerName', None)
         action_name = request.GET.get('action', None)
-        if game.currentPlayerName() == request_name or action_name == 'Block Steal' or action_name == 'Block Assassinate':
+        if game.current_player_name() == request_name or action_name == 'Block Steal' or action_name == 'Block Assassinate':
             return True
 
     get_initial_action_data(request)
-    ###check if it's your turn for anything besides Challenge, Coup , Block Steal, Block Assasinate
     if your_turn():
         take_action()
     game = Game.objects.all()[0]
@@ -237,11 +237,11 @@ def actions(request):
         get_initial_action_data(request)
         take_action()
     if game.current_action == 'Coup':
-        player = game.getPlayerFromPlayerName(game.current_player2)
+        player = game.get_player_from_player_name(game.current_player2)
         if player.lose_last_card():
             return redirect(show_table)
     if game.current_action == 'Challenge':
-        player = game.getPlayerFromPlayerName(game.current_player2)
+        player = game.get_player_from_player_name(game.current_player2)
         print(player)
         if player.lose_last_card():
             print("CLear current -  Challenge")
@@ -250,10 +250,9 @@ def actions(request):
 
 
 def lose_one_card(request):
-    print ("Lose one card")
     for player in Player.objects.all():
-        cardname = player.hand.all()[0].card.cardName
-        player.lose_influence(cardname)
+        card_name = player.hand.all()[0].card.cardName
+        player.lose_influence(card_name)
     return redirect(show_table)
 
 

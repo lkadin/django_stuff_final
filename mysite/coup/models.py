@@ -81,17 +81,21 @@ class Player(models.Model):
     def draw(self, number_of_cards):
         self.deck = Deck.objects.all()[0]
         for cards in range(number_of_cards):
-            self.hand.add(self.deck.draw_card())
+            self.selected_card = self.deck.draw_card()
+            print("Selected card = {}".format(self.selected_card))
+            self.hand.add(self.selected_card)
         self.save()
 
     def swap(self, cardname):
         self.cardname = cardname
+        print("SWAPPING out - {}".format(self.cardname))
         self.discard(self.cardname)
         self.draw(1)
         self.save()
 
     def discard(self, cardname):
         self.cardname = cardname
+        print("Discarding - {}".format(self.cardname))
         self.card_id = Card.objects.filter(cardName=self.cardname)[0].id
         self.card = self.hand.filter(card_id=self.card_id).filter(status='D')[0]
         self.deck = Deck.objects.all()[0]
@@ -145,19 +149,19 @@ class Deck(models.Model):
     def __str__(self):
         return "Deck"
 
-    def cardsremaining(self):
+    def cards_remaining(self):
         self.cnt = 0
-        for self.card in self.cards.all():
+        for self.card in self.cards.all().order_by('shuffle_order'):
             if self.card.shuffle_order is not None:
                 self.cnt += 1
         return self.cnt
 
-    def cardsavailable(self):
-        self.cardsavail = []
+    def cards_available(self):
+        self.cards_avail = []
         for self.card in self.cards.all():
             if self.card.shuffle_order is not None:
-                self.cardsavail.append(self.card)
-        return self.cardsavail
+                self.cards_avail.append(self.card)
+        return self.cards_avail
 
     def build(self):
         cis = CardInstance.objects.all()
@@ -166,18 +170,18 @@ class Deck(models.Model):
             self.cards.add(ci)
 
     def shuffle(self):
-        self.cardsleft = CardInstance.objects.exclude(shuffle_order=None)
-        for i in range(self.cardsleft.count() - 1, -1, -1):
+        self.cards_left = CardInstance.objects.exclude(shuffle_order=None)
+        for i in range(self.cards_left.count() - 1, -1, -1):
             r = random.randint(0, i)
-            self.card1 = self.cardsleft.filter(shuffle_order=i)[0]
-            self.card2 = self.cardsleft.filter(shuffle_order=r)[0]
+            self.card1 = self.cards_left.filter(shuffle_order=i)[0]
+            self.card2 = self.cards_left.filter(shuffle_order=r)[0]
             self.card1.shuffle_order, self.card2.shuffle_order = self.card2.shuffle_order, self.card1.shuffle_order
             self.card1.save()
             self.card2.save()
 
     def draw_card(self):
-        self.maxcard = CardInstance.objects.all().aggregate(Max('shuffle_order'))
-        self.max = self.maxcard['shuffle_order__max']
+        self.max_card = CardInstance.objects.all().aggregate(Max('shuffle_order'))
+        self.max = self.max_card['shuffle_order__max']
         self.card = CardInstance.objects.get(shuffle_order=self.max)
         self.card.shuffle_order = None
         self.card.save()
@@ -185,8 +189,8 @@ class Deck(models.Model):
 
     def return_card(self, card):
         self.card = card
-        self.maxcard = CardInstance.objects.all().aggregate(Max('shuffle_order'))
-        self.max = self.maxcard['shuffle_order__max'] + 1
+        self.max_card = CardInstance.objects.all().aggregate(Max('shuffle_order'))
+        self.max = self.max_card['shuffle_order__max'] + 1
         self.card.shuffle_order = self.max
         self.card.save()
 
@@ -201,6 +205,7 @@ class Game(models.Model):
     current_action = models.CharField(max_length=20, null=True, blank=True)
     current_player1 = models.CharField(max_length=20, null=True, blank=True)
     current_player2 = models.CharField(max_length=20, null=True, blank=True)
+    challenger = models.CharField(max_length=20, null=True, blank=True)
     redoMessage = models.CharField(max_length=30, blank=True, null=True)
     pending_action = models.BooleanField(default=False)
     player2_turn = models.BooleanField(default=False)
@@ -234,12 +239,13 @@ class Game(models.Model):
         self.del_card_instances()
         self.build_cards()
         self.cards_before_draw = None
+        self.challenger = None
         self.discards = None
-        deck = Deck(id=1)
-        deck.save()
-        deck.build()
-        deck.shuffle()
-        deck.save()
+        self.deck = Deck(id=1)
+        self.deck.save()
+        self.deck.build()
+        self.deck.shuffle()
+        self.deck.save()
         Player.objects.all().delete()
 
         # todo:replace with lobby /login
@@ -272,74 +278,74 @@ class Game(models.Model):
 
     def add_all_actions(self):
 
-        action = Action(name="Assassinate", player2_required=False, coins_required=3, url='actions',
-                        pending_required=True, description="is assassinating",
-                        coins_to_lose_in_challenge=0, card_required="Assassin")
-        action.save()
-        action = Action(name="Coup", player2_required=False, coins_required=7, url='actions',
-                        pending_required=True, description="is Couping",
-                        coins_to_lose_in_challenge=0)
-        action.save()
-        action = Action(name="Steal", player2_required=False, coins_required=0, url='actions',
-                        pending_required=False, description="Stole from",
-                        coins_to_lose_in_challenge=2, card_required='Captain')
-        action.save()
-        action = Action(name="Take 3 coins", player2_required=False, coins_required=0, url='actions',
-                        pending_required=False, description="is taking 3 coins",
-                        coins_to_lose_in_challenge=3, card_required='Duke')
-        action.save()
-        action = Action(name="Foreign Aid", player2_required=False, coins_required=0, url='actions',
-                        pending_required=False, description="is taking Foreign Aid",
-                        coins_to_lose_in_challenge=2)
-        action.save()
-        action = Action(name="Income", player2_required=False, coins_required=0, url='actions',
-                        pending_required=False, description="is taking income",
-                        coins_to_lose_in_challenge=0)
-        action.save()
-        action = Action(name="Block Steal", player2_required=False, coins_required=100, url='actions',
-                        pending_required=False, description="is blocking a steal",
-                        coins_to_lose_in_challenge=0, card_required='Captain,Ambassador')
-        action.save()
-        action = Action(name="Challenge", player2_required=False, coins_required=100, url='actions',
-                        pending_required=False, description="won the challenge",
-                        coins_to_lose_in_challenge=0)
-        action.save()
-        action = Action(name="Draw", player2_required=False, coins_required=0, url='actions',
-                        pending_required=True, description="is drawing new cards",
-                        coins_to_lose_in_challenge=0, card_required='Ambassador')
-        action.save()
-        action = Action(name="Lose Influence", player2_required=False, coins_required=100, url='loseinfluence',
-                        pending_required=False, description="is losing influence",
-                        coins_to_lose_in_challenge=0)
-        action.save()
-        action = Action(name="Allow Steal", player2_required=False, coins_required=100, url='actions',
-                        pending_required=False, description="is allowing steal",
-                        coins_to_lose_in_challenge=0)
-        action.save()
-        action = Action(name="Block Assassinate", player2_required=False, coins_required=100, url='actions',
-                        pending_required=False, description="is blocking the assassination",
-                        coins_to_lose_in_challenge=0, card_required='Contessa')
-        action.save()
-        action = Action(name="Block Foreign Aid", player2_required=False, coins_required=100, url='actions',
-                        pending_required=False, description="is blocking foreign aid",
-                        coins_to_lose_in_challenge=2, card_required='Duke')
-        action.save()
+        self.action = Action(name="Assassinate", player2_required=False, coins_required=3, url='actions',
+                             pending_required=True, description="is assassinating",
+                             coins_to_lose_in_challenge=0, card_required="Assassin")
+        self.action.save()
+        self.action = Action(name="Coup", player2_required=False, coins_required=7, url='actions',
+                             pending_required=True, description="is Couping",
+                             coins_to_lose_in_challenge=0)
+        self.action.save()
+        self.action = Action(name="Steal", player2_required=False, coins_required=0, url='actions',
+                             pending_required=False, description="Stole from",
+                             coins_to_lose_in_challenge=2, card_required='Captain')
+        self.action.save()
+        self.action = Action(name="Take 3 coins", player2_required=False, coins_required=0, url='actions',
+                             pending_required=False, description="is taking 3 coins",
+                             coins_to_lose_in_challenge=3, card_required='Duke')
+        self.action.save()
+        self.action = Action(name="Foreign Aid", player2_required=False, coins_required=0, url='actions',
+                             pending_required=False, description="is taking Foreign Aid",
+                             coins_to_lose_in_challenge=2)
+        self.action.save()
+        self.action = Action(name="Income", player2_required=False, coins_required=0, url='actions',
+                             pending_required=False, description="is taking income",
+                             coins_to_lose_in_challenge=0)
+        self.action.save()
+        self.action = Action(name="Block Steal", player2_required=False, coins_required=100, url='actions',
+                             pending_required=False, description="is blocking a steal",
+                             coins_to_lose_in_challenge=0, card_required='Captain,Ambassador')
+        self.action.save()
+        self.action = Action(name="Challenge", player2_required=False, coins_required=100, url='actions',
+                             pending_required=False, description="won the challenge",
+                             coins_to_lose_in_challenge=0)
+        self.action.save()
+        self.action = Action(name="Draw", player2_required=False, coins_required=0, url='actions',
+                             pending_required=True, description="is drawing new cards",
+                             coins_to_lose_in_challenge=0, card_required='Ambassador')
+        self.action.save()
+        self.action = Action(name="Lose Influence", player2_required=False, coins_required=100, url='loseinfluence',
+                             pending_required=False, description="is losing influence",
+                             coins_to_lose_in_challenge=0)
+        self.action.save()
+        self.action = Action(name="Allow Steal", player2_required=False, coins_required=100, url='actions',
+                             pending_required=False, description="is allowing steal",
+                             coins_to_lose_in_challenge=0)
+        self.action.save()
+        self.action = Action(name="Block Assassinate", player2_required=False, coins_required=100, url='actions',
+                             pending_required=False, description="is blocking the assassination",
+                             coins_to_lose_in_challenge=0, card_required='Contessa')
+        self.action.save()
+        self.action = Action(name="Block Foreign Aid", player2_required=False, coins_required=100, url='actions',
+                             pending_required=False, description="is blocking foreign aid",
+                             coins_to_lose_in_challenge=2, card_required='Duke')
+        self.action.save()
 
     def add_all_cards(self):
-        card = Card(cardName="Ambassador")
-        card.save()
-        card = Card(cardName="Duke")
-        card.save()
-        card = Card(cardName="Contessa")
-        card.save()
-        card = Card(cardName="Assassin")
-        card.save()
-        card = Card(cardName="Captain")
-        card.save()
+        self.card = Card(cardName="Ambassador")
+        self.card.save()
+        self.card = Card(cardName="Duke")
+        self.card.save()
+        self.card = Card(cardName="Contessa")
+        self.card.save()
+        self.card = Card(cardName="Assassin")
+        self.card.save()
+        self.card = Card(cardName="Captain")
+        self.card.save()
 
     def draw(self):
 
-        if not self.discardRequired():
+        if not self.discard_required():
             player1 = Player.objects.get(playerName=self.current_player1)
             self.cards_before_draw = " ".join([card.card.cardName for card in player1.hand.filter(status='D')])
             player1.draw(2)
@@ -388,7 +394,7 @@ class Game(models.Model):
 
     def block_steal(self, player1):
         self.prior_action_name, self.prior_player_name, self.prior_player_name2 = self.get_prior_action_info()
-        self.player2 = self.getPlayerFromPlayerName(self.prior_player_name)
+        self.player2 = self.get_player_from_player_name(self.prior_player_name)
         player1.add_coins(2)
         player1.save()
         self.player2.lose_coins(2)
@@ -410,10 +416,10 @@ class Game(models.Model):
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
             action_history.save()
         if not self.pending_action and not self.challenge_in_progress:
-            self.clearCurrent()
+            self.clear_current()
             self.save()
 
-    def currentPlayerName(self):
+    def current_player_name(self):
         self.players = [self.player for self.player in Player.objects.all()]
         return self.players[self.whoseTurn].playerName
 
@@ -427,7 +433,7 @@ class Game(models.Model):
         if count == 1:
             return self.winner
 
-    def clearCurrent(self):
+    def clear_current(self):
         self.current_action = None
         self.current_player1 = None
         self.current_player2 = None
@@ -437,11 +443,11 @@ class Game(models.Model):
         self.challenge_winner = None
         self.challenge_loser = None
 
-    def eligiblePlayers(self):
+    def eligible_players(self):
         eligible = []
         players = Player.objects.all()
         for player in players:
-            if player.playerName == self.currentPlayerName():
+            if player.playerName == self.current_player_name():
                 continue
             if player.influence() > 0:
                 if player.coins >= 2:
@@ -452,19 +458,19 @@ class Game(models.Model):
         eligible = []
         players = Player.objects.all()
         for player in players:
-            if player.playerName == self.currentPlayerName():
+            if player.playerName == self.current_player_name():
                 continue
             if player.influence() > 0:
                 eligible.append(player)
         return eligible
 
     def lose_all_cards(self, player_name):
-        self.player = self.getPlayerFromPlayerName(player_name)
+        self.player = self.get_player_from_player_name(player_name)
         self.cards = self.player.hand.filter(status='D')
         for self.card in self.cards:
             self.player.lose_influence(self.card.card.cardName)
         self.pending_action = False
-        action_history = ActionHistory(name='Challenge', player1=self.challenge_loser, player2=self.challenge_winner,
+        action_history = ActionHistory(name='Challenge', player1=self.challenger, player2=self.current_player2,
                                        challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
         action_history.save()
         action_history = ActionHistory(name='Lose Influence', player1=self.challenge_loser,
@@ -477,12 +483,12 @@ class Game(models.Model):
     def finish_lose_influence(self, card_name):
         action = Action.objects.get(name=self.current_action)
         if action.name != 'Challenge':
-            player = self.getPlayerFromPlayerName(self.current_player2)
+            player = self.get_player_from_player_name(self.current_player2)
             action_history = ActionHistory(name='Lose Influence', player1=self.current_player2, player2=card_name,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
 
         if action.name == "Challenge":
-            player = self.getPlayerFromPlayerName(self.challenge_loser)
+            player = self.get_player_from_player_name(self.challenge_loser)
             action_history = ActionHistory(name='Lose Influence', player1=self.challenge_loser, player2=card_name,
                                            challenge_winner=self.challenge_winner, challenge_loser=self.challenge_loser)
         action_history.save()
@@ -490,11 +496,12 @@ class Game(models.Model):
         if not player.influence() and self.whoseTurn == player.playerNumber:
             self.next_turn()
         player.save()
-        self.clearCurrent()
+        self.clear_current()
         self.save()
 
-    def getPlayerFromPlayerName(self, playerName):
-        return Player.objects.get(playerName=playerName)
+    def get_player_from_player_name(self, player_name):
+        self.player_name = player_name
+        return Player.objects.get(playerName=self.player_name)
 
     def steal(self, player1, player2):
         player1.add_coins(2)
@@ -518,9 +525,9 @@ class Game(models.Model):
             player.discard(card)
             player.save()
 
-    def discardRequired(self):
+    def discard_required(self):
         try:
-            player = self.getPlayerFromPlayerName(self.current_player1)
+            player = self.get_player_from_player_name(self.current_player1)
         except:
             return False
         if player.cardcount() > 2:
@@ -535,51 +542,51 @@ class Game(models.Model):
             self.finish_turn()
             self.save()
             self.challenge_in_progress = False
-            self.clearCurrent()
+            self.clear_current()
             self.save()
 
         self.challenge_in_progress = True
         prior_action_name, prior_player_name, prior_player_name2 = self.get_prior_action_info()
-
-        prior_action = Action.objects.get(name=prior_action_name)
-        prior_player = Player.objects.get(playerName=prior_player_name)
-        current_player = Player.objects.get(playerName=self.current_player1)
+        prior_action = Action.objects.get(name=prior_action_name)  # action being challenged?
+        prior_player = Player.objects.get(playerName=prior_player_name)  # player being challenged ?
+        current_player = Player.objects.get(playerName=self.current_player1)  # is this always the same as challenger?
         if prior_action_name not in (
                 "Take 3 coins", "Block Steal", "Steal", "Assassinate", "Block Assassinate", "Block Foreign Aid",
                 "Draw"):
             return
-        self.current_player2 = prior_player_name
-        self.save()
+        self.current_player2 = prior_player_name  # why do we need this?
+        self.save()  # why?
+        print("PRIOR Player={}, PRIOR CARD REQUIRED = {}".format(prior_player, prior_action.card_required))
         self.card_in_hand, self.where_from = prior_player.is_card_in_hand(prior_action.card_required, self)
+        print("Card in hand = {}, Where from = {} ".format(self.card_in_hand, self.where_from))
         if self.card_in_hand:  # challenge not successful
-            self.challenge_loser = current_player.playerName
+            # self.challenge_loser = current_player.playerName
+            self.challenge_loser = self.challenger
             self.challenge_winner = prior_player_name
-
-            if prior_action_name == "Assassinate" or self.getPlayerFromPlayerName(
+            if self.where_from == 'Current':
+                prior_player.swap(self.card_in_hand)  # swap out winning card
+            if prior_action_name == "Assassinate" or self.get_player_from_player_name(
                     self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
                 return
 
-            if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
+            if self.get_player_from_player_name(self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
                 return
-            if self.where_from == 'Current':
-                prior_player.swap(self.card_in_hand)  # swap out winning card
+
 
         else:  # challenge is successful
 
             self.challenge_loser = prior_player_name
-            self.challenge_winner = current_player.playerName
+            self.challenge_winner = self.challenger
             prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
-            if self.getPlayerFromPlayerName(self.challenge_loser).influence() == 1:
+            if self.get_player_from_player_name(self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
                 return
-
             if prior_action_name in ('Steal', 'Block Steal'):
                 current_player.add_coins(prior_action.coins_to_lose_in_challenge)
                 current_player.add_coins(2)
                 prior_player.lose_coins(2)
-
             prior_player.save()
             current_player.save()
             if prior_action_name == "Block Assassinate":
@@ -589,24 +596,24 @@ class Game(models.Model):
         self.current_action = 'Challenge'
 
     def get_prior_action_info(self):
-        prior_player_name2 = None
+        self.prior_player_name2 = None
         try:
-            prior_action_name = ActionHistory.objects.all().order_by('-id')[0].name
-            prior_player_name = ActionHistory.objects.all().order_by('-id')[0].player1
-            prior_player_name2 = ActionHistory.objects.all().order_by('-id')[0].player2
+            self.prior_action_name = ActionHistory.objects.all().order_by('-id')[0].name
+            self.prior_player_name = ActionHistory.objects.all().order_by('-id')[0].player1
+            self.prior_player_name2 = ActionHistory.objects.all().order_by('-id')[0].player2
         except:
-            prior_action_name = None
-            prior_player_name = None
+            self.prior_action_name = None
+            self.prior_player_name = None
 
-        return prior_action_name, prior_player_name, prior_player_name2
+        return self.prior_action_name, self.prior_player_name, self.prior_player_name2
 
     def get_second_prior_action_info(self):
         try:
-            prior_action_name = ActionHistory.objects.all().order_by('-id')[1].name
-            prior_player_name = ActionHistory.objects.all().order_by('-id')[1].player1
-            prior_player_name2 = ActionHistory.objects.all().order_by('-id')[1].player2
+            self.prior_action_name = ActionHistory.objects.all().order_by('-id')[1].name
+            self.prior_player_name = ActionHistory.objects.all().order_by('-id')[1].player1
+            self.prior_player_name2 = ActionHistory.objects.all().order_by('-id')[1].player2
         except:
-            prior_action_name = None
-            prior_player_name = None
-            prior_player_name2 = None
-        return prior_action_name, prior_player_name, prior_player_name2
+            self.prior_action_name = None
+            self.prior_player_name = None
+            self.prior_player_name2 = None
+        return self.prior_action_name, self.prior_player_name, self.prior_player_name2
