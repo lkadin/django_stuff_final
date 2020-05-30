@@ -15,7 +15,7 @@ def index(request):
             lobby.save()
         return render(
             request,
-            'login_screen.html',
+            'login_screen_org.html',
             context={'names': names, 'in_progress': in_progress})
     else:
         return render(
