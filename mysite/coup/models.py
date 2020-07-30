@@ -72,30 +72,23 @@ class Player(models.Model):
         self.coins -= num_coins
 
     def influence(self):
-        cnt = 0
-        for card in self.hand.all():
-            if card.status == "D":
-                cnt += 1
-        return cnt
+        return sum(1 for card in self.hand.all() if card.status == "D")
 
     def draw(self, number_of_cards):
         self.deck = Deck.objects.all()[0]
-        for cards in range(number_of_cards):
+        for _ in range(number_of_cards):
             self.selected_card = self.deck.draw_card()
-            print("Selected card = {}".format(self.selected_card))
             self.hand.add(self.selected_card)
         self.save()
 
     def swap(self, cardname):
         self.cardname = cardname
-        print("SWAPPING out - {}".format(self.cardname))
         self.discard(self.cardname)
         self.draw(1)
         self.save()
 
     def discard(self, cardname):
         self.cardname = cardname
-        print("Discarding - {}".format(self.cardname))
         self.card_id = Card.objects.filter(cardName=self.cardname)[0].id
         self.card = self.hand.filter(card_id=self.card_id).filter(status='D')[0]
         self.deck = Deck.objects.all()[0]
@@ -133,8 +126,8 @@ class Player(models.Model):
             if card.card.cardName in card_names:
                 if card.status == 'D':
                     return card.card.cardName, 'Current'
-                else:
-                    return False, "Current"
+            else:
+                return False, "Current"
 
         if game.get_prior_action_info()[0] == 'Draw':
             for card in game.cards_before_draw.split():
@@ -171,8 +164,12 @@ class Deck(models.Model):
 
     def shuffle(self):
         self.cards_left = CardInstance.objects.exclude(shuffle_order=None)
+        # print("# Cards left - {}".format(len(self.cards_left)))
+        # print("Cards remaining = {} ".format(self.cards_remaining()))
+        # print("Cards available - {}".format(self.cards_available()))
         for i in range(self.cards_left.count() - 1, -1, -1):
             r = random.randint(0, i)
+
             self.card1 = self.cards_left.filter(shuffle_order=i)[0]
             self.card2 = self.cards_left.filter(shuffle_order=r)[0]
             self.card1.shuffle_order, self.card2.shuffle_order = self.card2.shuffle_order, self.card1.shuffle_order
@@ -262,7 +259,7 @@ class Game(models.Model):
     def initialDeal(self):
         self.deck = Deck.objects.all()[0]
         players = Player.objects.all()
-        for i in range(self.NUM_OF_CARDS):
+        for _ in range(self.NUM_OF_CARDS):
             for player in players:
                 player.hand.add(self.deck.draw_card())
                 self.deck.save()
@@ -332,6 +329,8 @@ class Game(models.Model):
         self.action.save()
 
     def add_all_cards(self):
+        self.card = Card(cardName="Captain")
+        self.card.save()
         self.card = Card(cardName="Ambassador")
         self.card.save()
         self.card = Card(cardName="Duke")
@@ -339,8 +338,6 @@ class Game(models.Model):
         self.card = Card(cardName="Contessa")
         self.card.save()
         self.card = Card(cardName="Assassin")
-        self.card.save()
-        self.card = Card(cardName="Captain")
         self.card.save()
 
     def draw(self):
@@ -449,9 +446,8 @@ class Game(models.Model):
         for player in players:
             if player.playerName == self.current_player_name():
                 continue
-            if player.influence() > 0:
-                if player.coins >= 2:
-                    eligible.append(player)
+            if player.influence() > 0 and player.coins >= 2:
+                eligible.append(player)
         return eligible
 
     def eligibleCoupAssassinate(self):
@@ -530,10 +526,7 @@ class Game(models.Model):
             player = self.get_player_from_player_name(self.current_player1)
         except:
             return False
-        if player.cardcount() > 2:
-            return True
-        else:
-            return False
+        return player.cardcount() > 2
 
     def challenge(self):
 
@@ -554,17 +547,16 @@ class Game(models.Model):
                 "Take 3 coins", "Block Steal", "Steal", "Assassinate", "Block Assassinate", "Block Foreign Aid",
                 "Draw"):
             return
-        self.current_player2 = prior_player_name  # why do we need this?
-        self.save()  # why?
-        print("PRIOR Player={}, PRIOR CARD REQUIRED = {}".format(prior_player, prior_action.card_required))
+        # self.current_player2 = prior_player_name  # why do we need this?
+        # self.save()  # why?
         self.card_in_hand, self.where_from = prior_player.is_card_in_hand(prior_action.card_required, self)
-        print("Card in hand = {}, Where from = {} ".format(self.card_in_hand, self.where_from))
         if self.card_in_hand:  # challenge not successful
             # self.challenge_loser = current_player.playerName
             self.challenge_loser = self.challenger
             self.challenge_winner = prior_player_name
             if self.where_from == 'Current':
                 prior_player.swap(self.card_in_hand)  # swap out winning card
+                prior_player.save()
             if prior_action_name == "Assassinate" or self.get_player_from_player_name(
                     self.challenge_loser).influence() == 1:
                 prepare_to_lose_all_cards()
@@ -574,9 +566,7 @@ class Game(models.Model):
                 prepare_to_lose_all_cards()
                 return
 
-
         else:  # challenge is successful
-
             self.challenge_loser = prior_player_name
             self.challenge_winner = self.challenger
             prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
