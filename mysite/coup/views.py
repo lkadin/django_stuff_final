@@ -139,8 +139,6 @@ def show_table(request):
 def show_deck(request):
     deck = Deck.objects.all()[0]
     cards_remaining = deck.cards_remaining
-    for card in deck.cards.all().order_by('shuffle_order'):
-        print(card,card.shuffle_order)
     return render(
         request,
         'show_deck.html',
@@ -184,7 +182,6 @@ def lose_influence(request):
         else:
             player = game.get_player_from_player_name(game.current_player2)
         if player.lose_last_card():
-            print("lost last card")
             game.finish_turn
             game.clear_current()
             game.save()
@@ -242,9 +239,7 @@ def actions(request):
             return redirect(show_table)
     if game.current_action == 'Challenge':
         player = game.get_player_from_player_name(game.current_player2)
-        print(player)
         if player.lose_last_card():
-            print("CLear current -  Challenge")
             return redirect(show_table)
     return redirect(show_table)
 
@@ -261,13 +256,6 @@ def set_coins(request):
         player.coins = 8
         player.save()
     return redirect(show_table)
-
-
-def packing_slip(request):
-    order = {"number": 170, "name": "CARNIVAL CONQUEST", "address1": "PORT OF MIAMI", "city": "MIAMI",
-             "state": "FLORIDA", "zip": "33132"}
-    return render(request, 'packing_slip.html', {'order': order})
-
 
 def clear_lobby(request):
     game = Game.objects.all()[0]

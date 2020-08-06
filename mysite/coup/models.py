@@ -120,20 +120,23 @@ class Player(models.Model):
             game.save()
             return True
 
-    def is_card_in_hand(self, card_name, game):
-        card_names = card_name.split(',')
-        for card in self.hand.all():
-            if card.card.cardName in card_names:
-                if card.status == 'D':
-                    return card.card.cardName, 'Current'
-            else:
-                return False, "Current"
+    def is_card_in_hand(self, cards_to_check, game):
+        self.cards_to_check = cards_to_check.split(',')
+        self.cards_in_hand = [card.card.cardName for card in self.hand.filter(status="D")]
 
         if game.get_prior_action_info()[0] == 'Draw':
             for card in game.cards_before_draw.split():
-                if card in card_names:
+                if card in self.cards_to_check:
                     return card, 'Prior'
-        return False, 'Prior'
+            return False, 'Prior'
+
+        for card in self.cards_to_check:
+            if card not in self.cards_in_hand:
+                return False, "Current"
+            else:
+                return card, 'Current'
+
+
 
 
 class Deck(models.Model):
@@ -164,9 +167,6 @@ class Deck(models.Model):
 
     def shuffle(self):
         self.cards_left = CardInstance.objects.exclude(shuffle_order=None)
-        # print("# Cards left - {}".format(len(self.cards_left)))
-        # print("Cards remaining = {} ".format(self.cards_remaining()))
-        # print("Cards available - {}".format(self.cards_available()))
         for i in range(self.cards_left.count() - 1, -1, -1):
             r = random.randint(0, i)
 
@@ -226,6 +226,11 @@ class Game(models.Model):
                 card.cardinstance_set.create(shuffle_order=self.order)
                 self.order += 1
                 card.save()
+
+    def rebuild_cards(self):
+        for self.cnt, card in enumerate(CardInstance.objects.exclude(shuffle_order=None)):
+            card.shuffle_order = self.cnt
+            card.save()
 
     def initialize(self):
         ActionHistory.objects.all().delete()
@@ -551,7 +556,6 @@ class Game(models.Model):
         # self.save()  # why?
         self.card_in_hand, self.where_from = prior_player.is_card_in_hand(prior_action.card_required, self)
         if self.card_in_hand:  # challenge not successful
-            # self.challenge_loser = current_player.playerName
             self.challenge_loser = self.challenger
             self.challenge_winner = prior_player_name
             if self.where_from == 'Current':
@@ -569,16 +573,19 @@ class Game(models.Model):
         else:  # challenge is successful
             self.challenge_loser = prior_player_name
             self.challenge_winner = self.challenger
-            prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
-            if self.get_player_from_player_name(self.challenge_loser).influence() == 1:
-                prepare_to_lose_all_cards()
-                return
+
             if prior_action_name in ('Steal', 'Block Steal'):
                 current_player.add_coins(prior_action.coins_to_lose_in_challenge)
                 current_player.add_coins(2)
                 prior_player.lose_coins(2)
-            prior_player.save()
-            current_player.save()
+                prior_player.save()
+                current_player.save()
+            if prior_action_name not in ('Steal', 'Block Steal'):
+                prior_player.lose_coins(prior_action.coins_to_lose_in_challenge)
+                if self.get_player_from_player_name(self.challenge_loser).influence() == 1:
+                    prepare_to_lose_all_cards()
+                    return
+
             if prior_action_name == "Block Assassinate":
                 prepare_to_lose_all_cards()
                 return

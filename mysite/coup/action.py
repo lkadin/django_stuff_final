@@ -75,7 +75,7 @@ def get_initial_action_data(request):
     if request.method == 'GET':
         getrequest(request)
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         discards = request.POST.getlist('cardnames', None)
         if discards:
             discard_str = ''

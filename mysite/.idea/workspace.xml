@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:lkadin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Fix block assassinate challenge bug - left in debug statements for now">
-      <change afterPath="$PROJECT_DIR$/coup/templates/login_screen_org.html" afterDir="false" />
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Added Google authentication">
+      <change afterPath="$PROJECT_DIR$/coup/tests/test_block_steal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/coup/tests/test_block_steal_lose_challenge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mysite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mysite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coup/templates/login_screen.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/login_screen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/tests/test_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/tests/test_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,40 +62,20 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/coup/templates" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/coup/tests" />
+    <property name="settings.editor.selected.configurable" value="ai.sourcery.intellij.SourceryConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Python\django_stuff\mysite\coup\tests" />
       <recent name="D:\Python\django_stuff\mysite\coup\templates" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Python\django_stuff\mysite\coup\templates" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest in test_models.py">
-    <configuration name="cards_to_keep" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="mysite" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/coup" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/coup/cards_to_keep.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="mysite" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -91,7 +96,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_lee.test_should_create_user_with_username" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for test_block_steal.GameModelTest.test_block_steal" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="mysite" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -103,23 +108,39 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_lee.test_should_create_user_with_username&quot;" />
+      <option name="_new_target" value="&quot;test_block_steal.GameModelTest.test_block_steal&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in D:/Python/django_stuff/mysite/coup/tests/test_lee.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest in test_block_steal_lose_challenge.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="mysite" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/coup/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/coup/tests/test_lee.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/coup/tests/test_block_steal_lose_challenge.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_block_steal.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="mysite" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/coup/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/coup/tests/test_block_steal.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
@@ -142,13 +163,14 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.pytest in test_models.py" />
-        <item itemvalue="Python tests.pytest for test_lee.test_should_create_user_with_username" />
-        <item itemvalue="Python tests.pytest in D:/Python/django_stuff/mysite/coup/tests/test_lee.py" />
-        <item itemvalue="Python.cards_to_keep" />
+        <item itemvalue="Python tests.pytest in test_block_steal_lose_challenge.py" />
+        <item itemvalue="Python tests.pytest for test_block_steal.GameModelTest.test_block_steal" />
+        <item itemvalue="Python tests.pytest in test_block_steal.py" />
         <item itemvalue="Python.manage" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -384,7 +406,28 @@
       <option name="project" value="LOCAL" />
       <updated>1590754335861</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Added Google authentication">
+      <created>1590875942881</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1590875942881</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Added .env logic">
+      <created>1591292819966</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1591292819966</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Print debug status">
+      <created>1591293023120</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1591293023120</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -410,9 +453,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed draw to cards to keep instead of cards to discard" />
-    <MESSAGE value="Changed Layout for cards to pick" />
-    <MESSAGE value="Fixed dead card opacity" />
     <MESSAGE value="Fixed final challenge not being recorded in history" />
     <MESSAGE value="Clean up css" />
     <MESSAGE value="Fixed lose all cards to allow next player" />
@@ -435,61 +475,98 @@
     <MESSAGE value="Require number of cards for discard and exchange" />
     <MESSAGE value="Fix typo" />
     <MESSAGE value="Fix block assassinate challenge bug - left in debug statements for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix block assassinate challenge bug - left in debug statements for now" />
+    <MESSAGE value="Added Google authentication" />
+    <MESSAGE value="Added .env logic" />
+    <MESSAGE value="Print debug status" />
+    <option name="LAST_COMMIT_MESSAGE" value="Print debug status" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587670981127">
+    <state x="2765" y="383" key="#Notifications" timestamp="1595523543665">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587670981127" />
-    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1590754334698">
+    <state x="2765" y="383" key="#Notifications/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595523543665" />
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1595533987290">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595533987290" />
+    <state x="2012" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595104009410" />
+    <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591291505475">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2641" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591291505475" />
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596383165263">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596383165263" />
+    <state x="2507" y="88" key="CommitChangelistDialog2" timestamp="1591293021974">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="587" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589321771600" />
-    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754334698" />
+    <state x="2507" y="88" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591293021974" />
     <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1589314633880">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1589314633880" />
-    <state x="783" y="444" key="FileChooserDialogImpl" timestamp="1588534673387">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2703" y="444" key="FileChooserDialogImpl" timestamp="1591292725784">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="783" y="444" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588534673387" />
-    <state x="2703" y="444" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1587759297686" />
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom" timestamp="1590754986209">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589458856257" />
-    <state width="1899" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754986209" />
-    <state width="1899" height="274" key="GridCell.Tab.0.center" timestamp="1590754986208">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589458856257" />
-    <state width="1899" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754986208" />
-    <state width="1899" height="274" key="GridCell.Tab.0.left" timestamp="1590754986208">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589458856255" />
-    <state width="1899" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754986208" />
-    <state width="1899" height="274" key="GridCell.Tab.0.right" timestamp="1590754986208">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589458856257" />
-    <state width="1899" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754986208" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1588534684491">
+    <state x="2703" y="444" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591292725784" />
+    <state width="1314" height="274" key="GridCell.Tab.0.bottom" timestamp="1596572638848">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1314" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596572638848" />
+    <state width="1316" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1596552839549" />
+    <state width="1314" height="274" key="GridCell.Tab.0.center" timestamp="1596572638847">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1314" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596572638847" />
+    <state width="1316" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1596552839549" />
+    <state width="1314" height="274" key="GridCell.Tab.0.left" timestamp="1596572638847">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1314" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596572638847" />
+    <state width="1316" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1596552839548" />
+    <state width="1314" height="274" key="GridCell.Tab.0.right" timestamp="1596572638848">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1314" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596572638848" />
+    <state width="1316" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1596552839549" />
+    <state width="949" height="338" key="GridCell.Tab.1.bottom" timestamp="1593869301014">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="949" height="338" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593869301014" />
+    <state width="949" height="338" key="GridCell.Tab.1.center" timestamp="1593869301014">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="949" height="338" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593869301014" />
+    <state width="949" height="338" key="GridCell.Tab.1.left" timestamp="1593869301014">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="949" height="338" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593869301014" />
+    <state width="949" height="338" key="GridCell.Tab.1.right" timestamp="1593869301014">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="949" height="338" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593869301014" />
+    <state x="2381" y="165" key="SettingsEditor" timestamp="1595523523107">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1588534684491" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590754341783">
+    <state x="2381" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595523523107" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1591293761594">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589321780540" />
-    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590754341783" />
-    <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1590874684652">
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1591293761594" />
+    <state x="-7" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596561518310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-7" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1589198376336" />
+    <state x="-7" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596561518310" />
     <state x="-156" y="183" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590874684652" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596543065367">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1596543065367" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -500,7 +577,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/coup/views.py</url>
-          <line>209</line>
+          <line>206</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
