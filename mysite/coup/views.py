@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory
-from .action import get_initial_action_data, take_action, getrequest, finish_challenge
+from .action import get_initial_action_data, take_action, getrequest, finish_challenge, get_allowed_actions
 import random
 
 
@@ -40,69 +40,13 @@ def startgame(request):
 
 
 def show_table(request):
-    def get_allowed_actions():
-        prior_action_name, prior_player_name, prior_player_name2 = game.get_prior_action_info()
-        if request.user.get_username() == game.current_player_name():
-            if current_player_coins >= 10:
-                actions = Action.objects.filter(name="Coup")
-            else:
-                actions = Action.objects.filter(coins_required__lte=current_player_coins)
-                if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid'):
-                    challenge = Action.objects.filter(name__in=['Challenge'])
-                    actions = actions.union(challenge)
-                if prior_action_name == 'Foreign Aid':
-                    block_foriegn_aid = Action.objects.filter(name__in=['Block Foreign Aid'])
-                    actions = actions.union(block_foriegn_aid)
-
-        if request.user.get_username() != game.current_player_name():
-
-            if prior_action_name not in (
-                    'Income', 'Challenge', 'Lose Influence',
-                    None) and request.user.get_username() != prior_player_name:
-                actions = Action.objects.filter(name__in=['Challenge'])
-                if prior_action_name == 'Foreign Aid':
-                    block_foriegn_aid = Action.objects.filter(name__in=['Block Foreign Aid'])
-                    actions = actions.union(block_foriegn_aid)
-            else:
-                actions = []
-
-        if game.current_player2:
-            actions = []
-
-        if request.user.get_username() == game.current_player2 and game.current_action == 'Assassinate':
-            actions = Action.objects.filter(name__in=["Lose Influence", "Block Assassinate", "Challenge"])
-
-        if request.user.get_username() == game.current_player2 and game.current_action in ('Coup'):
-            actions = Action.objects.filter(name__in=["Lose Influence"])
-
-        if request.user.get_username() == game.challenge_loser and game.current_action in ('Challenge'):
-            actions = Action.objects.filter(name__in=["Lose Influence"])
-
-        if request.user.get_username() == game.current_player2 and game.current_action == 'Steal':
-            actions = Action.objects.filter(name__in=["Block Steal", "Allow Steal", 'Challenge'])
-        if not game.current_action:
-            try:
-                actions = actions.exclude(name__in=['Block Steal'])
-            except:
-                pass
-        if not request.user.get_username():
-            actions = []
-
-        request_player = Player.objects.get(playerName=request.user.get_username())
-        if request_player.influence() == 0:
-            actions = []
-
-        if prior_action_name == 'Steal' and request.user.get_username() == prior_player_name2:
-            block_steal = Action.objects.filter(name__in=['Block Steal'])
-            actions = actions.union(block_steal)
-        return actions
-
     players = Player.objects.all()
     action_history = ActionHistory.objects.all().order_by('-id')[:16]
     game = Game.objects.all()[0]
     cards = []
     current_player_coins = players.get(playerNumber=game.whoseTurn).coins
-    actions = get_allowed_actions()
+    request_player = request.user.get_username()
+    actions = get_allowed_actions(game, request_player, current_player_coins)
 
     try:
         action_description = Action.objects.get(name=game.current_action).description
@@ -223,7 +167,8 @@ def actions(request):
         game = Game.objects.all()[0]
         request_name = request.GET.get('playerName', None)
         action_name = request.GET.get('action', None)
-        if game.current_player_name() == request_name or action_name == 'Block Steal' or action_name == 'Block Assassinate':
+        if game.current_player_name() == request_name or action_name == 'Block Steal' \
+                or action_name == 'Block Assassinate':
             return True
 
     get_initial_action_data(request)
@@ -256,6 +201,7 @@ def set_coins(request):
         player.coins = 8
         player.save()
     return redirect(show_table)
+
 
 def clear_lobby(request):
     game = Game.objects.all()[0]

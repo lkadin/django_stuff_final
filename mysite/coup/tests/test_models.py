@@ -1,8 +1,11 @@
 from django.test import TestCase
+import requests
+import requests_mock
 
 # Create your tests here.
-import coup.action
 from coup.models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory
+from coup.action import get_allowed_actions
+from coup.views import startgame
 
 
 class GameModelTest(TestCase):
@@ -169,10 +172,10 @@ class GameModelTest(TestCase):
             self.assertNotEqual(card.cardName, player.is_card_in_hand(card.cardName, game)[0])
 
     def test_card_in_prior_hand(self):
-        cards_to_test='Assassin Duke'
+        cards_to_test = 'Assassin Duke'
         game = Game.objects.all()[0]
         player = Player.objects.all()[0]
-        game.cards_before_draw= cards_to_test
+        game.cards_before_draw = cards_to_test
         game.save()
         action_history = ActionHistory(name='Draw', player1=player, player2=None,
                                        challenge_winner=None, challenge_loser=None)
@@ -204,34 +207,6 @@ class GameModelTest(TestCase):
         self.assertEqual(player1.coins, 4)
         self.assertEqual(player2.coins, 0)
 
-    # def test_block_steal(self):
-    #     game = Game.objects.all()[0]
-    #     game.initialize()
-    #     game.clear_current()
-    #     game.current_action = 'Steal'
-    #     game.current_player1 = Player.objects.all()[0].playerName
-    #     game.current_player2 = Player.objects.all()[1].playerName
-    #     game.save()
-    #     coup.action.take_action()
-    # game = Game.objects.all()[0]
-    # player1 = Player.objects.all()[0]
-    # player2 = Player.objects.all()[1]
-    # player1.hand.all().delete()
-    # player1.hand.add(CardInstance.objects.all()[0])
-    # player1.hand.add(CardInstance.objects.all()[1])
-    # player1.hand.all()[0].status = 'U'
-    # player1.save()
-    # for card in (player1.hand.all()):
-    #     print(card, card.status)
-    # player2 = Player.objects.all()[1]
-    # player1.hand.add(CardInstance.objects.all()[0])
-    # player2.hand.all().delete()
-    # game.steal(player1, player2)
-    # game.finish_turn()
-    # game.block_steal(player1)
-    # self.assertEqual(player1.coins, 2)
-    # self.assertEqual(player2.coins, 2)
-
     def test_cards_remaining(self):
         deck = Deck(id=1)
         self.assertEqual(deck.cards_remaining(), 15 - len(Player.objects.all()) * 2)
@@ -257,3 +232,32 @@ class GameModelTest(TestCase):
         action = Action.objects.filter(name='Coup')[0]
         game.coup(player, action)
         self.assertEqual(player.coins, -5)
+
+    def test_get_allowed_actions(self):
+        startgame(None)
+        game = Game.objects.all()[0]
+        game.initialDeal()
+        player1 = Player.objects.all()[0]
+        allowed_actions = get_allowed_actions(game, player1.playerName, player1.coins)
+        assert 'Challenge' not in allowed_actions
+
+        player2 = Player.objects.all()[1]
+        game.steal(player1,player2)
+        action_history = ActionHistory(name='Steal', player1=player1, player2=player2,
+                                       challenge_winner=None, challenge_loser=None)
+        action_history.save()
+        game.next_turn()
+        allowed_actions = [action.name for action in get_allowed_actions(game, player2.playerName, player2.coins)]
+        assert 'Block Steal' in allowed_actions
+        assert 'Challenge' in allowed_actions
+
+        allowed_actions = [action.name for action in get_allowed_actions(game, player1.playerName, player1.coins)]
+        assert 'Challenge' not in allowed_actions
+
+
+        # with requests_mock.Mocker() as m:
+        #     m.get('http://test.com', text='Hello from the mocker')
+        #     response=requests.get('http://test.com').text
+        #     print (type(response))
+
+
