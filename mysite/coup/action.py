@@ -107,7 +107,7 @@ def get_allowed_actions(game, request_player, current_player_coins):
             actions = Action.objects.filter(name="Coup")
         else:
             actions = Action.objects.filter(coins_required__lte=current_player_coins)
-            if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid',):
+            if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid','Block Steal',):
                 challenge = Action.objects.filter(name__in=['Challenge'])
                 actions = actions.union(challenge)
             if prior_action_name == 'Foreign Aid':

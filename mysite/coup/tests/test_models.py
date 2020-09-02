@@ -54,6 +54,50 @@ class GameModelTest(TestCase):
         self.assertEqual(player.cardcount(), 2)
         self.assertEqual(player.influence(), 2)
 
+    # def test_get_allowed_actions(self):
+    #     # No challenge at startup
+    #     startgame(None)
+    #     game = Game.objects.all()[0]
+    #     game.initialDeal()
+    #     game.whoseTurn == 0
+    #     game.save()
+    #     player1 = Player.objects.all()[0]
+    #     allowed_actions = get_allowed_actions(game, player1.playerName, player1.coins)
+    #     assert 'Challenge' not in allowed_actions
+    #
+    #     # block steal and challenge after steal for challenger
+    #     player2 = Player.objects.all()[1]
+    #     game.steal(player1, player2)
+    #     action_history = ActionHistory(name='Steal', player1=player1, player2=player2,
+    #                                    challenge_winner=None, challenge_loser=None)
+    #     action_history.save()
+    #     game.next_turn()
+    #     game.save()
+    #     allowed_actions = [action.name for action in get_allowed_actions(game, player2.playerName, player2.coins)]
+    #     assert 'Block Steal' in allowed_actions
+    #     assert 'Challenge' in allowed_actions
+    #
+    #     # no options if not your turn
+    #     allowed_actions = [action.name for action in get_allowed_actions(game, player1.playerName, player1.coins)]
+    #     assert allowed_actions == []
+    #
+    #     # challenge only after block steal from challenger
+    #     game.block_steal(player2)
+    #     game.save()
+    #     action_history = ActionHistory(name='Block Steal', player1=player2, player2=player1,
+    #                                    challenge_winner=None, challenge_loser=None)
+    #     action_history.save()
+    #     game.next_turn()
+    #     game.save()
+    #     allowed_actions = [action.name for action in get_allowed_actions(game, player1.playerName, player1.coins)]
+    #     assert 'Challenge' in allowed_actions
+    #     assert len(allowed_actions) == 1
+    #
+    #     # No challenge for player that blocked the steal
+    #     allowed_actions = [action.name for action in get_allowed_actions(game, player2.playerName, player2.coins)]
+    #     print("ALLOWED******************************", allowed_actions)
+    #     assert 'Challenge' not in allowed_actions
+
     def test_lose_coins(self):
         player = Player.objects.all()[0]
         player.lose_coins(2)
@@ -233,31 +277,8 @@ class GameModelTest(TestCase):
         game.coup(player, action)
         self.assertEqual(player.coins, -5)
 
-    def test_get_allowed_actions(self):
-        startgame(None)
-        game = Game.objects.all()[0]
-        game.initialDeal()
-        player1 = Player.objects.all()[0]
-        allowed_actions = get_allowed_actions(game, player1.playerName, player1.coins)
-        assert 'Challenge' not in allowed_actions
-
-        player2 = Player.objects.all()[1]
-        game.steal(player1,player2)
-        action_history = ActionHistory(name='Steal', player1=player1, player2=player2,
-                                       challenge_winner=None, challenge_loser=None)
-        action_history.save()
-        game.next_turn()
-        allowed_actions = [action.name for action in get_allowed_actions(game, player2.playerName, player2.coins)]
-        assert 'Block Steal' in allowed_actions
-        assert 'Challenge' in allowed_actions
-
-        allowed_actions = [action.name for action in get_allowed_actions(game, player1.playerName, player1.coins)]
-        assert 'Challenge' not in allowed_actions
-
 
         # with requests_mock.Mocker() as m:
         #     m.get('http://test.com', text='Hello from the mocker')
         #     response=requests.get('http://test.com').text
         #     print (type(response))
-
-
