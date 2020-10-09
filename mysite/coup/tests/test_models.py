@@ -51,7 +51,7 @@ class GameModelTest(TestCase):
         self.assertEqual(deck.cards_remaining(), 15 - len(Player.objects.all()) * 2)
         self.assertEqual(CardInstance.objects.all().count(), 15)
         self.assertEqual(Player.objects.all().count(), len(Player.objects.all()))
-        self.assertEqual(player.cardcount(), 2)
+        self.assertEqual(player.card_count(), 2)
         self.assertEqual(player.influence(), 2)
 
     # def test_get_allowed_actions(self):
@@ -111,15 +111,15 @@ class GameModelTest(TestCase):
     def test_draw_2_cards(self):
         player = Player.objects.all()[0]
         player.draw(2)
-        self.assertEqual(player.cardcount(), 4)
+        self.assertEqual(player.card_count(), 4)
 
     def test_discard(self):
         player = Player.objects.all()[0]
         cards = player.hand.all()
         player.discard(cards[0])
-        self.assertEqual(player.cardcount(), 1)
+        self.assertEqual(player.card_count(), 1)
         player.discard(cards[0])
-        self.assertEqual(player.cardcount(), 0)
+        self.assertEqual(player.card_count(), 0)
 
     def test_lose_influence(self):
         player = Player.objects.all()[0]
@@ -142,13 +142,13 @@ class GameModelTest(TestCase):
     def test_draw_and_discard_after_lose_influence(self):
         player = Player.objects.all()[0]
         player.draw(2)
-        self.assertEqual(player.cardcount(), 4)
+        self.assertEqual(player.card_count(), 4)
         self.assertEqual(player.hand.filter(status='D').count(), 4)
         player.discard(player.hand.filter(status='D')[0])
         self.assertEqual(player.hand.filter(status='D').count(), 3)
         player.discard(player.hand.filter(status='D')[0])
         self.assertEqual(player.hand.filter(status='D').count(), 2)
-        self.assertEqual(player.cardcount(), 2)
+        self.assertEqual(player.card_count(), 2)
 
     def test_swap_card(self):
         player = Player.objects.all()[0]
@@ -194,7 +194,7 @@ class GameModelTest(TestCase):
     def test_card_count(self):
         player = Player.objects.all()[0]
         cards = player.hand.filter(status='D')
-        self.assertEqual(player.cardcount(), len(cards))
+        self.assertEqual(player.card_count(), len(cards))
 
     def test_influence(self):
         player = Player.objects.all()[0]

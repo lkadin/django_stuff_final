@@ -12,5 +12,29 @@
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="models.Player.objects" />
+          <option value="models.ActionHistory.objects" />
+          <option value="models.Game.objects" />
+          <option value="models.Action.objects" />
+          <option value="models.Lobby.objects" />
+          <option value="models.Deck.objects" />
+          <option value="django.db.models.fields.related.ForeignKey.cardName" />
+          <option value="django.db.models.fields.related.ManyToManyField.all" />
+          <option value="django.db.models.fields.related.ManyToManyField.add" />
+          <option value="models.Card.*" />
+          <option value="django.db.models.fields.related.ManyToManyField.*" />
+        </list>
+      </option>
+    </inspection_tool>
   </profile>
 </component>

@@ -73,7 +73,7 @@ def finish_challenge():
 def get_initial_action_data(request) -> object:
     game = Game.objects.all()[0]
     if request.method == 'GET':
-        getrequest(request)
+        get_request(request)
 
     elif request.method == 'POST':
         discards = request.POST.getlist('cardnames', None)
@@ -86,7 +86,7 @@ def get_initial_action_data(request) -> object:
     return
 
 
-def getrequest(request):
+def get_request(request):
     playerName1 = request.GET.get('playerName', None)
     actionName = request.GET.get('action', None)
     playerName2 = request.GET.get('name', None)
@@ -102,12 +102,14 @@ def getrequest(request):
 
 def get_allowed_actions(game, request_player, current_player_coins):
     prior_action_name, prior_player_name, prior_player_name2 = game.get_prior_action_info()
+    actions = []
     if request_player == game.current_player_name():
         if current_player_coins >= 10:
             actions = Action.objects.filter(name="Coup")
         else:
             actions = Action.objects.filter(coins_required__lte=current_player_coins)
-            if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid','Block Steal',):
+            if prior_action_name not in ('Income', 'Challenge', 'Lose Influence', None, 'Foreign Aid',
+                                         'Block Steal',):
                 challenge = Action.objects.filter(name__in=['Challenge'])
                 actions = actions.union(challenge)
             if prior_action_name == 'Foreign Aid':
@@ -137,9 +139,6 @@ def get_allowed_actions(game, request_player, current_player_coins):
 
     if request_player == game.challenge_loser and game.current_action in 'Challenge':
         actions = Action.objects.filter(name__in=["Lose Influence"])
-    #
-    # if request_player == game.current_player2 and game.current_action == 'Steal':
-    #     actions = Action.objects.filter(name__in=["Block Steal", "Allow Steal", 'Challenge'])
     if not game.current_action:
         try:
             actions = actions.exclude(name__in=['Block Steal'])

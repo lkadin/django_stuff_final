@@ -81,15 +81,15 @@ class Player(models.Model):
             self.hand.add(self.selected_card)
         self.save()
 
-    def swap(self, cardname):
-        self.cardname = cardname
-        self.discard(self.cardname)
+    def swap(self, card_name):
+        self.card_name = card_name
+        self.discard(self.card_name)
         self.draw(1)
         self.save()
 
-    def discard(self, cardname):
-        self.cardname = cardname
-        self.card_id = Card.objects.filter(cardName=self.cardname)[0].id
+    def discard(self, card_name):
+        self.card_name = card_name
+        self.card_id = Card.objects.filter(cardName=self.card_name)[0].id
         self.card = self.hand.filter(card_id=self.card_id).filter(status='D')[0]
         self.deck = Deck.objects.all()[0]
         self.deck.return_card(self.card)
@@ -98,12 +98,12 @@ class Player(models.Model):
         self.deck.save()
         self.save()
 
-    def cardcount(self):
+    def card_count(self):
         return len(self.hand.all())
 
-    def lose_influence(self, cardname):
-        self.cardname = cardname
-        self.card_id = Card.objects.filter(cardName=cardname)[0].id
+    def lose_influence(self, card_name):
+        self.card_name = card_name
+        self.card_id = Card.objects.filter(cardName=card_name)[0].id
         self.card = self.hand.filter(card_id=self.card_id).filter(status='D')[0]
         self.card.status = 'U'
         self.card.save()
@@ -135,8 +135,6 @@ class Player(models.Model):
                 return False, "Current"
             else:
                 return card, 'Current'
-
-
 
 
 class Deck(models.Model):
@@ -531,7 +529,7 @@ class Game(models.Model):
             player = self.get_player_from_player_name(self.current_player1)
         except:
             return False
-        return player.cardcount() > 2
+        return player.card_count() > 2
 
     def challenge(self):
 

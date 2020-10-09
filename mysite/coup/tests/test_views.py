@@ -20,7 +20,5 @@ class GameviewTest(TestCase):
     #     self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):
-        resp = self.client.get(reverse('authors'))
+        resp = self.client.get(reverse('actions'))
         self.assertEqual(resp.status_code, 200)
-
-

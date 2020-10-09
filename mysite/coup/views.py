@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Player, Card, Deck, Action, Game, Lobby, ActionHistory
-from .action import get_initial_action_data, take_action, getrequest, finish_challenge, get_allowed_actions
+from .models import Player,  Deck, Action, Game, Lobby, ActionHistory
+from .action import get_initial_action_data, take_action, get_request, finish_challenge, get_allowed_actions
 import random
 
 
@@ -134,7 +134,7 @@ def lose_influence(request):
 
 
 def challenge(request):
-    getrequest(request)
+    get_request(request)
     game = Game.objects.all()[0]
     game.challenger = request.user.username
     game.pending_action = True
