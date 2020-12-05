@@ -46,6 +46,11 @@ def show_table(request):
     cards = []
     current_player_coins = players.get(playerNumber=game.whoseTurn).coins
     request_player = request.user.get_username()
+    if not request_player:
+        return render(
+            request,
+            'not_logged_in.html',
+        )
     actions = get_allowed_actions(game, request_player, current_player_coins)
 
     try:
