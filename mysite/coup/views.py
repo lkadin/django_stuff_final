@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Player,  Deck, Action, Game, Lobby, ActionHistory
+from .models import Player, Deck, Action, Game, Lobby, ActionHistory
 from .action import get_initial_action_data, take_action, get_request, finish_challenge, get_allowed_actions
 import random
 
@@ -126,7 +126,8 @@ def lose_influence(request):
         return redirect(show_table)
     else:
         game = Game.objects.all()[0]
-        if game.current_action == 'Challenge':
+        if game.current_action == 'Cha' \
+                                  'llenge':
             player = game.get_player_from_player_name(game.challenge_loser)
         else:
             player = game.get_player_from_player_name(game.current_player2)
