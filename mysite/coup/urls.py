@@ -50,5 +50,7 @@ urlpatterns += [
 urlpatterns += [
     path('clear_lobby', views.clear_lobby, name='clear_lobby'),
 ]
-
+urlpatterns += [
+    path('get_permissions', views.get_permissions, name='get_permissions'),
+]
 

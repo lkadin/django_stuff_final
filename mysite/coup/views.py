@@ -214,3 +214,10 @@ def clear_lobby(request):
     game.clear_lobby()
     game.save()
     return redirect(index)
+
+def get_permissions(request):
+    from django.contrib.auth.models import Permission
+    permissions = Permission.objects.all()
+    for permission in permissions:
+        print (permission)
+    return redirect(index)
