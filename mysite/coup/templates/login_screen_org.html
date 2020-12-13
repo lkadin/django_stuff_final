@@ -31,11 +31,11 @@ User: {{ user.get_username }}
 
 <div class="btn-lg">
     <ul>
-
+        {% if perms.coup.view_game %}
         <li><a href="{% url 'showTable'%}?next={{request.path}}">
             <button type="button" class="btn btn-info">Join Game</button>
         </a></li>
-
+        {% endif%}
         <li><a href="{% url 'logout'%}?next={{request.path}}">
             <button type="button" class="btn btn-info">Logout</button>
         </a></li>
