@@ -27,10 +27,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Set up permissions for view and change game">
+    <list default="true" id="332789cd-e3f0-40d2-bac8-eca49429c761" name="Default" comment="Correct permission to view game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coup/templates/login_screen_org.html" beforeDir="false" afterPath="$PROJECT_DIR$/coup/templates/login_screen_org.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coup/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/coup/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +66,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/coup/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../" />
     <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -489,7 +491,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607441533742</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Correct permission to view game">
+      <created>1607897994934</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1607897994934</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -515,7 +524,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed swap card after challenge" />
     <MESSAGE value="Fixed swap card after challenge part 2" />
     <MESSAGE value="Fixed Challenge being an option after no influence left" />
     <MESSAGE value="Added clear discards and clear cards before draw to clear current" />
@@ -540,14 +548,15 @@
     <MESSAGE value="Additional tests" />
     <MESSAGE value="If user is not logged in, redirect to not logged in screen" />
     <MESSAGE value="Set up permissions for view and change game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set up permissions for view and change game" />
+    <MESSAGE value="Correct permission to view game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correct permission to view game" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/coup/views.py</url>
-          <line>157</line>
+          <line>158</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

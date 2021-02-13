@@ -24,6 +24,13 @@
 
 {% get_providers as socialaccount_providers %}
 
+{% if perms.coup.view_game %}
+<p>You can view the game</p>
+{% endif %}
+
+{% if perms.coup.change_game %}
+<p>You can change the game</p>
+{% endif %}
 
 {% if user.is_authenticated  %}
 User: {{ user.get_username }}
@@ -31,11 +38,11 @@ User: {{ user.get_username }}
 
 <div class="btn-lg">
     <ul>
-        {% if perms.coup.view_game %}
+
         <li><a href="{% url 'showTable'%}?next={{request.path}}">
             <button type="button" class="btn btn-info">Join Game</button>
         </a></li>
-        {% endif%}
+
         <li><a href="{% url 'logout'%}?next={{request.path}}">
             <button type="button" class="btn btn-info">Logout</button>
         </a></li>
