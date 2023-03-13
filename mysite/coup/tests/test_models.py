@@ -2,8 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from ..models import Player, Card, Deck, Action, Game, CardInstance, ActionHistory
-from ..views import startgame
+from ..models import Player, Card, Deck, Game, CardInstance
 
 
 class GameModelTest(TestCase):
@@ -21,7 +20,7 @@ class GameModelTest(TestCase):
         game.initialize()
 
     def test_initial_deal(self):
-        game = Game.objects.all()[0]
+        Game.objects.all()[0]
         player = Player.objects.all()[0]
         deck = Deck(id=1)
         self.assertEquals(deck.cardsremaining(), 7)
@@ -31,7 +30,7 @@ class GameModelTest(TestCase):
         self.assertEqual(player.influence(), 2)
 
     def test_player(self):
-        game = Game.objects.all()[0]
+        Game.objects.all()[0]
         player = Player.objects.all()[0]
         # test lose coins
         player.lose_coins(2)
