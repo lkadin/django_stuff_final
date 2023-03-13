@@ -144,7 +144,6 @@ def showtable(request):
             },
         )
     else:
-
         return render(
             request,
             "game_over.html",
