@@ -7,12 +7,10 @@ from ..views import startgame
 
 
 class GameModelTest(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        game = Game(id=1,
-                    NUM_OF_CARDS=2)
+        game = Game(id=1, NUM_OF_CARDS=2)
 
         game.save()
         Card.objects.create(cardName="Contessa")
@@ -56,9 +54,9 @@ class GameModelTest(TestCase):
         # test draw and discard after lose influence
         player.draw(2)
         self.assertEqual(player.cardcount(), 4)
-        self.assertEqual(player.hand.filter(status='D').count(), 3)
-        player.discard(player.hand.filter(status='D')[0])
-        self.assertEqual(player.hand.filter(status='D').count(), 2)
-        player.discard(player.hand.filter(status='D')[0])
-        self.assertEqual(player.hand.filter(status='D').count(), 1)
+        self.assertEqual(player.hand.filter(status="D").count(), 3)
+        player.discard(player.hand.filter(status="D")[0])
+        self.assertEqual(player.hand.filter(status="D").count(), 2)
+        player.discard(player.hand.filter(status="D")[0])
+        self.assertEqual(player.hand.filter(status="D").count(), 1)
         self.assertEqual(player.cardcount(), 2)
