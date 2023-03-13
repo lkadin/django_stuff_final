@@ -3,35 +3,35 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path("", views.index, name="index"),
 ]
 
 urlpatterns += [
-    path('start', views.startgame, name='startGame'),
+    path("start", views.startgame, name="startGame"),
 ]
 urlpatterns += [
-    path('showTable', views.showtable, name='showTable'),
-]
-
-urlpatterns += [
-    path('showDeck', views.showdeck, name='showDeck'),
+    path("showTable", views.showtable, name="showTable"),
 ]
 
 urlpatterns += [
-    path('initialDeal', views.initialdeal, name='initialDeal'),
+    path("showDeck", views.showdeck, name="showDeck"),
 ]
 
 urlpatterns += [
-    path('shuffle', views.shuffle, name='shuffle'),
+    path("initialDeal", views.initialdeal, name="initialDeal"),
 ]
 
 urlpatterns += [
-    path('actions', views.actions, name='actions'),
+    path("shuffle", views.shuffle, name="shuffle"),
 ]
 
 urlpatterns += [
-    path('loseinfluence', views.loseinfluence, name='loseinfluence'),
+    path("actions", views.actions, name="actions"),
+]
+
+urlpatterns += [
+    path("loseinfluence", views.loseinfluence, name="loseinfluence"),
 ]
 urlpatterns += [
-    path('lose_one_card', views.lose_one_card, name='lose_one_card'),
+    path("lose_one_card", views.lose_one_card, name="lose_one_card"),
 ]
