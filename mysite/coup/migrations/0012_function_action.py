@@ -6,13 +6,15 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0011_function'),
+        ("coup", "0011_function"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='function',
-            name='action',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='coup.Action'),
+            model_name="function",
+            name="action",
+            field=models.ForeignKey(
+                default=0, on_delete=django.db.models.deletion.CASCADE, to="coup.Action"
+            ),
         ),
     ]

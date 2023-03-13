@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0007_auto_20180726_1257'),
+        ("coup", "0007_auto_20180726_1257"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='game',
-            name='current_action',
+            model_name="game",
+            name="current_action",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
     ]

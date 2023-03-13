@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0014_game_redomessage'),
+        ("coup", "0014_game_redomessage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='action',
-            name='coins_required',
+            model_name="action",
+            name="coins_required",
             field=models.IntegerField(default=0),
         ),
     ]

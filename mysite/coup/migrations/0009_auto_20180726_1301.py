@@ -5,18 +5,18 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0008_auto_20180726_1258'),
+        ("coup", "0008_auto_20180726_1258"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='game',
-            old_name='curerent_player1',
-            new_name='current_player1',
+            model_name="game",
+            old_name="curerent_player1",
+            new_name="current_player1",
         ),
         migrations.RenameField(
-            model_name='game',
-            old_name='curerent_player2',
-            new_name='current_player2',
+            model_name="game",
+            old_name="curerent_player2",
+            new_name="current_player2",
         ),
     ]

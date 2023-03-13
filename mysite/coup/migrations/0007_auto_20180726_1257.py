@@ -5,35 +5,35 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0006_auto_20180726_1254'),
+        ("coup", "0006_auto_20180726_1254"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='action',
-            name='curerent_player1',
+            model_name="action",
+            name="curerent_player1",
         ),
         migrations.RemoveField(
-            model_name='action',
-            name='curerent_player2',
+            model_name="action",
+            name="curerent_player2",
         ),
         migrations.RemoveField(
-            model_name='action',
-            name='current_action',
+            model_name="action",
+            name="current_action",
         ),
         migrations.AddField(
-            model_name='game',
-            name='curerent_player1',
+            model_name="game",
+            name="curerent_player1",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='game',
-            name='curerent_player2',
+            model_name="game",
+            name="curerent_player2",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='game',
-            name='current_action',
-            field=models.CharField(default='Assassinate', max_length=20),
+            model_name="game",
+            name="current_action",
+            field=models.CharField(default="Assassinate", max_length=20),
         ),
     ]

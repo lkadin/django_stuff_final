@@ -5,23 +5,23 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0005_actionhistory'),
+        ("coup", "0005_actionhistory"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='action',
-            name='curerent_player1',
+            model_name="action",
+            name="curerent_player1",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='action',
-            name='curerent_player2',
+            model_name="action",
+            name="curerent_player2",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='action',
-            name='current_action',
-            field=models.CharField(default='Assassinate', max_length=20),
+            model_name="action",
+            name="current_action",
+            field=models.CharField(default="Assassinate", max_length=20),
         ),
     ]

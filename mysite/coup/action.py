@@ -1,4 +1,4 @@
-from .models import Player,   Action, Game,  ActionHistory
+from .models import Player, Action, Game, ActionHistory
 
 
 def take_action():

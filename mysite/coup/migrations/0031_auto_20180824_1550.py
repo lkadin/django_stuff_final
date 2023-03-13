@@ -5,13 +5,16 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0030_auto_20180823_1743'),
+        ("coup", "0030_auto_20180823_1743"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='action',
-            name='description',
-            field=models.CharField(default=models.CharField(default='Assassinate', max_length=20), max_length=30),
+            model_name="action",
+            name="description",
+            field=models.CharField(
+                default=models.CharField(default="Assassinate", max_length=20),
+                max_length=30,
+            ),
         ),
     ]

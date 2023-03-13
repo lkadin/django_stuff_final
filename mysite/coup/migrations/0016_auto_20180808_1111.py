@@ -5,17 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0015_action_coins_required'),
+        ("coup", "0015_action_coins_required"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='game',
-            name='discardRequired',
+            model_name="game",
+            name="discardRequired",
         ),
         migrations.AddField(
-            model_name='game',
-            name='pending_action',
+            model_name="game",
+            name="pending_action",
             field=models.BooleanField(default=False),
         ),
     ]

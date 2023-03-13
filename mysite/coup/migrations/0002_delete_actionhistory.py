@@ -5,11 +5,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0001_initial'),
+        ("coup", "0001_initial"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='ActionHistory',
+            name="ActionHistory",
         ),
     ]

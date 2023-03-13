@@ -5,18 +5,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0033_action_card_required'),
+        ("coup", "0033_action_card_required"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='actionhistory',
-            name='challenge_loser',
+            model_name="actionhistory",
+            name="challenge_loser",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AddField(
-            model_name='actionhistory',
-            name='challenge_winner',
+            model_name="actionhistory",
+            name="challenge_winner",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
     ]

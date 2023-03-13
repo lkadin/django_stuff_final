@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0025_action_url'),
+        ("coup", "0025_action_url"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='action',
-            name='pending_required',
+            model_name="action",
+            name="pending_required",
             field=models.BooleanField(default=False),
         ),
     ]

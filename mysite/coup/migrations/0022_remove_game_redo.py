@@ -5,12 +5,12 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0021_auto_20180810_1112'),
+        ("coup", "0021_auto_20180810_1112"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='game',
-            name='redo',
+            model_name="game",
+            name="redo",
         ),
     ]

@@ -5,18 +5,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0017_remove_game_redomessage'),
+        ("coup", "0017_remove_game_redomessage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='discardRequired',
+            model_name="game",
+            name="discardRequired",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='game',
-            name='redoMessage',
+            model_name="game",
+            name="redoMessage",
             field=models.CharField(blank=True, max_length=30, null=True),
         ),
     ]

@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('coup', '0020_game_redomessage'),
+        ("coup", "0020_game_redomessage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='game',
-            name='redo',
+            model_name="game",
+            name="redo",
             field=models.BooleanField(default=False),
         ),
     ]
