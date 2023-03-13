@@ -2,3 +2,4 @@
 venv
 mysite/db.sqlite3
 .vscode/settings.json
+mysite/db.sqlite3
