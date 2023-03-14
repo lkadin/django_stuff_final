@@ -43,8 +43,6 @@ def index(request):
     )
 
 
-
-
 class BookListView(generic.ListView):
     model = Book
 
@@ -107,8 +105,6 @@ class LoanedBooksAllListView(LoginRequiredMixin, generic.ListView):
         return BookInstance.objects.filter(status__exact="o").order_by("due_back")
 
 
-
-
 @permission_required("catalog.can_mark_returned")
 def renew_book_librarian(request, pk):
     """
@@ -144,8 +140,6 @@ def renew_book_librarian(request, pk):
         "catalog/book_renew_librarian.html",
         {"form": form, "bookinst": book_inst},
     )
-
-
 
 
 class AuthorCreate(CreateView):
